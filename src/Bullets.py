@@ -4,7 +4,7 @@ import CONST
 
 class Bullets():
 
-    def __init__(self,start_x,start_y,dest_x,dest_y):
+    def __init__(self,start_x,start_y,dest_x,dest_y,dmg,vel,hp):
         # sprite initialisation
         self.sprite = arcade.Sprite("sprites/player/ammo-1.png", CONST.SPRITE_SCALING_BULLET)
 
@@ -17,8 +17,13 @@ class Bullets():
 
         self.sprite.angle = math.degrees(angle-(math.pi/2)) # 90 degree add for the sprite format
 
-        self.sprite.change_x = math.cos(angle) * CONST.BULLET_VEL
-        self.sprite.change_y = math.sin(angle) * CONST.BULLET_VEL
+        self.sprite.change_x = math.cos(angle) * vel
+        self.sprite.change_y = math.sin(angle) * vel
+
+        # bullet variable
+        self.domage = dmg
+        self.hit_point = hp
+        self.last_touch = None
 
     def draw(self):
         self.sprite.draw()
