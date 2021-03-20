@@ -55,7 +55,7 @@ class Supporter():
             arcade.draw_rectangle_filled(center_x=self.sprite.center_x,
                                          center_y=self.sprite.center_y + CONST.SUPPORTER_HEALTHBAR_OFFSET_Y,
                                          width=CONST.SUPPORTER_HEALTHBAR_WIDTH,
-                                         height=3,
+                                         height=CONST.SUPPORTER_HEALTHBAR_HEIGHT,
                                          color=arcade.color.WHITE)
 
         # Calculate width based on health
