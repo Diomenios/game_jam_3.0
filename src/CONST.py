@@ -15,3 +15,8 @@ PLAYER_INIT_VEL = 2
 
 # bullet Constants
 BULLET_VEL = 10
+
+
+# capitol Constants
+CAPITOL_SHIELD = 10
+CAPITOL_HIT_POINT = 100
