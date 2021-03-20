@@ -1,8 +1,9 @@
 import arcade
 import CONST
 
-class Capitol(arcade.Sprite):
-    def setup(self):
+class Capitol():
+    def __init__(self):
+        self.sprite = arcade.Sprite("sprites/land/capitol-base.png", CONST.SPRITE_SCALING_CAPITOL)
         self.shield = CONST.CAPITOL_SHIELD
         self.hit_point = CONST.CAPITOL_HIT_POINT
 
