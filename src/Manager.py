@@ -77,7 +77,6 @@ class Manager(arcade.Window):
         bullet = self.player.fire(self.mouse_x,self.mouse_y)
         if bullet != None:
             self.bullets.append(bullet)
-            print(bullet.hit_points)
 
         # Remove bullets & supporters
         self.bullets = [b for b in self.bullets if b.sprite.right > 0 and b.sprite.left < (CONST.SCREEN_WIDTH - 1) and b.sprite.bottom > 0 and b.sprite.top < (CONST.SCREEN_HEIGHT - 1)]
