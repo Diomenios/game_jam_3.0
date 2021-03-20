@@ -1,4 +1,5 @@
 import arcade
+import random
 import CONST
 from Player import Player
 from Supporter import Supporter
@@ -44,6 +45,9 @@ class Manager(arcade.Window):
 
         self.player = Player()
         self.capitol = Capitol()
+        self.supporters = []
+        self.bullets = []
+        self.coequipier = None
 
 
     def on_draw(self):
@@ -65,8 +69,11 @@ class Manager(arcade.Window):
 
         # Create supporter
         if self.time % (self.spawn_interval * 60) == 0:
-            # adding a ProTrump with boost_speed set to 1
-            s = ProTrump(1)
+            r = random.random()
+            if r < CONST.REDNECK_PROBABILITY:
+                s = Redneck(1)
+            else:
+                s = ProTrump(1)
             self.supporters.append(s)
 
 
