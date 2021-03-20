@@ -6,7 +6,14 @@ import math
 class Supporter():
     def __init__(self, max_health, type, boost_speed):
         # sprite inititialisation
-        self.sprite = arcade.Sprite(":resources:images/animated_characters/female_person/femalePerson_idle.png", CONST.SPRITE_SCALING_SUPPORTER)
+        self.sprites =(
+        arcade.Sprite("sprites/npc/all_redneck_mv.png", scale = CONST.SPRITE_SCALING_PLAYER,image_x = 0,image_y = 0,image_width = 66,image_height = 66),
+        arcade.Sprite("sprites/npc/all_redneck_mv.png", scale = CONST.SPRITE_SCALING_PLAYER,image_x = 66,image_y = 0,image_width = 66,image_height = 66),
+        arcade.Sprite("sprites/npc/all_redneck_mv.png", scale = CONST.SPRITE_SCALING_PLAYER,image_x = 122,image_y = 0,image_width = 66,image_height = 66),
+        arcade.Sprite("sprites/npc/all_redneck_mv.png", scale = CONST.SPRITE_SCALING_PLAYER,image_x = 188,image_y = 0,image_width = 66,image_height = 66),
+        arcade.Sprite("sprites/npc/all_redneck_mv.png", scale = CONST.SPRITE_SCALING_PLAYER,image_x = 254,image_y = 0,image_width = 66,image_height = 66),
+        )
+        self.sprite = self.sprites[0]
 
         # position at begining
         side = random.randint(0, 3)
@@ -39,11 +46,31 @@ class Supporter():
         self.hit_points = max_health
         self.type = type
 
+        self._sprite_count = 0
+        self._tempo_sprite = 0
+
 
     def update(self):
         """ Move the supporter """
-        self.sprite.center_x += self.sprite.change_x
-        self.sprite.center_y += self.sprite.change_y
+        x = self.sprite.center_x
+        y = self.sprite.center_y
+        change_x = self.sprite.change_x
+        change_y = self.sprite.change_y
+
+        if self.hit_points > 0:
+            if self._tempo_sprite == 0 :
+                self.sprite = self.sprites[self._sprite_count%4]
+                self._sprite_count += 1
+                self._tempo_sprite = CONST.TEMPO_ANNIMATION
+            else:
+                self._tempo_sprite += -1
+
+            self.sprite.change_x = change_x
+            self.sprite.change_y = change_y
+        else:
+            self.sprite = self.sprites[4]
+        self.sprite.center_x = self.sprite.change_x + x
+        self.sprite.center_y = self.sprite.change_y + y
 
     def draw(self):
         self.sprite.draw()
