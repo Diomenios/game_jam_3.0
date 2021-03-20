@@ -13,7 +13,7 @@ class Capitol():
         self.sprite.center_x = CONST.SCREEN_WIDTH/2
 
         self.max_hit_point = CONST.CAPITOL_HIT_POINT
-        self.hit_point = CONST.CAPITOL_HIT_POINT-10
+        self.hit_point = CONST.CAPITOL_HIT_POINT
 
     def hit(self, damage):
         if self.shield != 0 :

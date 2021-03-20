@@ -38,6 +38,7 @@ class Supporter():
         self.max_health = max_health
         self.hit_points = max_health
         self.type = type
+        self.damage = 3
 
 
     def update(self):
