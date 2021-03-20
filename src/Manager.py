@@ -128,30 +128,30 @@ class Manager(arcade.Window):
             self.leftclick_pressed = False
 
     def on_key_press(self, key, modifiers):
-        if key == arcade.key.UP:
+        if key == arcade.key.Z:
             self.up_pressed = True
             self.dirkey_change = True
-        elif key == arcade.key.DOWN:
+        elif key == arcade.key.S:
             self.down_pressed = True
             self.dirkey_change = True
-        elif key == arcade.key.LEFT:
+        elif key == arcade.key.Q:
             self.left_pressed = True
             self.dirkey_change = True
-        elif key == arcade.key.RIGHT:
+        elif key == arcade.key.D:
             self.right_pressed = True
             self.dirkey_change = True
 
     def on_key_release(self, key, modifiers):
-        if key == arcade.key.UP:
+        if key == arcade.key.Z:
             self.up_pressed = False
             self.dirkey_change = True
-        elif key == arcade.key.DOWN:
+        elif key == arcade.key.S:
             self.down_pressed = False
             self.dirkey_change = True
-        elif key == arcade.key.LEFT:
+        elif key == arcade.key.Q:
             self.left_pressed = False
             self.dirkey_change = True
-        elif key == arcade.key.RIGHT:
+        elif key == arcade.key.D:
             self.right_pressed = False
             self.dirkey_change = True
 
