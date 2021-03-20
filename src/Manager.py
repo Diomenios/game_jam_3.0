@@ -100,7 +100,7 @@ class Manager(arcade.Window):
             dist = 1e9
             for s in self.supporters:
                 d = math.sqrt((s.sprite.center_x-CONST.SCREEN_WIDTH/2)**2 + (s.sprite.center_y-CONST.SCREEN_HEIGHT/2)**2)
-                if d < dist:
+                if d < dist and d < self.coequipier.range :
                     dist = d
                     nearest = s
             if nearest is not None:

@@ -15,6 +15,7 @@ class Coequipier():
 
         # weapon
         self.weapon = Weapon()
+        self.range = CONST.SUPPORT_RANGE
 
     def fire(self, dest_x,dest_y):
         bullet = None
