@@ -6,7 +6,7 @@ import math
 class Supporter():
     def __init__(self, max_health):
         # sprite inititialisation
-        self.sprite = arcade.Sprite(":resources:images/animated_characters/female_person/femalePerson_idle.png", CONST.SPRITE_SCALING_PLAYER)
+        self.sprite = arcade.Sprite(":resources:images/animated_characters/female_person/femalePerson_idle.png", CONST.SPRITE_SCALING_SUPPORTER)
 
         # position at begining
         side = random.randint(0, 3)
