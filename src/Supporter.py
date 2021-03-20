@@ -4,7 +4,7 @@ import random
 import math
 
 class Supporter():
-    def __init__(self, max_health):
+    def __init__(self, max_health, type, boost_speed):
         # sprite inititialisation
         self.sprite = arcade.Sprite(":resources:images/animated_characters/female_person/femalePerson_idle.png", CONST.SPRITE_SCALING_SUPPORTER)
 
@@ -32,11 +32,12 @@ class Supporter():
 
         angle = math.atan2(y_diff, x_diff)
 
-        self.sprite.change_x = math.cos(angle) * CONST.SUPPORTER_INIT_VEL
-        self.sprite.change_y = math.sin(angle) * CONST.SUPPORTER_INIT_VEL
+        self.sprite.change_x = math.cos(angle) * CONST.SUPPORTER_INIT_VEL * boost_speed
+        self.sprite.change_y = math.sin(angle) * CONST.SUPPORTER_INIT_VEL * boost_speed
 
         self.max_health = max_health
         self.hit_points = max_health
+        self.type = type
 
 
     def update(self):
@@ -55,7 +56,7 @@ class Supporter():
             arcade.draw_rectangle_filled(center_x=self.sprite.center_x,
                                          center_y=self.sprite.center_y + CONST.SUPPORTER_HEALTHBAR_OFFSET_Y,
                                          width=CONST.SUPPORTER_HEALTHBAR_WIDTH,
-                                         height=3,
+                                         height=CONST.SUPPORTER_HEALTHBAR_HEIGHT,
                                          color=arcade.color.WHITE)
 
         # Calculate width based on health

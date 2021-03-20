@@ -19,6 +19,7 @@ class Manager(arcade.Window):
         self.score = 0
         self.time = 0
         self.spawn_interval = 1
+        self.boost_speed = 1
 
         # Interaction parameters
         self.dirkey_change = False
@@ -47,6 +48,8 @@ class Manager(arcade.Window):
 
         self.player.draw()
         #self.capitol.draw()
+        #self.capitol.draw_health_bar()          
+
         #self.coequipier.draw()
         for b in self.bullets:
             b.draw()
@@ -60,7 +63,7 @@ class Manager(arcade.Window):
         
         # Create supporter
         if self.time % (self.spawn_interval * 60) == 0:
-            s = Supporter(CONST.SUPPORTER_MAX_HEALTH)
+            s = Supporter(CONST.SUPPORTER_MAX_HEALTH, 0, self.boost_speed)
             self.supporters.append(s)
 
 
@@ -89,8 +92,19 @@ class Manager(arcade.Window):
                     b.last_touch = s
                     b.hit_points -= 1
                     break;
-
         self.bullets = [b for b in self.bullets if b.hit_points > 0]
+        self.supporters = [s for s in self.supporters if s.hit_points > 0]
+        
+        # Collisions player <-> supporters
+        stunned = False
+        for s in self.supporters:
+            if arcade.check_for_collision(self.player.sprite, s.sprite):
+                if s.type == 1:
+                    s.hit_points -= CONST.REDNECK_HP_DECREASE
+                self.player.stun = True
+                stunned = True
+        if not stunned:
+            self.player.stun = False
         self.supporters = [s for s in self.supporters if s.hit_points > 0]
 
 
