@@ -8,7 +8,16 @@ from Bullets import Bullets
 class Player():
     def __init__(self):
         # sprite initialisation
-        self.sprite = arcade.Sprite(":resources:images/animated_characters/female_person/femalePerson_idle.png", CONST.SPRITE_SCALING_PLAYER)
+        self.sprites =(
+        arcade.Sprite("sprites/player/all_player_mv.png", scale = CONST.SPRITE_SCALING_PLAYER,image_x = 0,image_y = 0,image_width = 66,image_height = 66),
+        arcade.Sprite("sprites/player/all_player_mv.png", scale = CONST.SPRITE_SCALING_PLAYER,image_x = 66,image_y = 0,image_width = 66,image_height = 66),
+        arcade.Sprite("sprites/player/all_player_mv.png", scale = CONST.SPRITE_SCALING_PLAYER,image_x = 122,image_y = 0,image_width = 66,image_height = 66),
+        arcade.Sprite("sprites/player/all_player_mv.png", scale = CONST.SPRITE_SCALING_PLAYER,image_x = 188,image_y = 0,image_width = 66,image_height = 66),
+        arcade.Sprite("sprites/player/all_player_mv.png", scale = CONST.SPRITE_SCALING_PLAYER,image_x = 254,image_y = 0,image_width = 66,image_height = 66),
+        arcade.Sprite("sprites/player/all_player_mv.png", scale = CONST.SPRITE_SCALING_PLAYER,image_x = 375,image_y = 0,image_width = 66,image_height = 66),
+        )
+        self.sprite = self.sprites[0]
+
         self.up_pressed = 0
         self.down_pressed =  0
         self.left_pressed = 0
@@ -16,6 +25,9 @@ class Player():
         self.auto_fire = 0
         self.stun = 0
         self.count = 0
+
+        self._sprite_count = 0
+        self._tempo_sprite = 0
 
         # position at begining
         self.sprite.center_x = CONST.PLAYER_X
@@ -32,21 +44,44 @@ class Player():
         # Calculate speed based on the keys pressed
         self.sprite.change_x = 0
         self.sprite.change_y = 0
+        x = self.sprite.center_x
+        y = self.sprite.center_y
 
         if not self.stun:
+            change_y = 0
+            change_x = 0
             if self.up_pressed and not self.down_pressed:
-                self.sprite.change_y = self.vel
+                change_y = self.vel
             elif self.down_pressed and not self.up_pressed:
-                self.sprite.change_y = -self.vel
+                change_y = -self.vel
             if self.left_pressed and not self.right_pressed:
-                self.sprite.change_x = -self.vel
+                change_x = -self.vel
             elif self.right_pressed and not self.left_pressed:
-                self.sprite.change_x = self.vel
+                change_x = self.vel
+
+            # change sprite
+            if not change_x == 0 or not change_y == 0 :
+                if self._tempo_sprite == 0 :
+                    self.sprite = self.sprites[self._sprite_count%4]
+                    self._sprite_count += 1
+                    self._tempo_sprite = CONST.TEMPO_ANNIMATION
+                else:
+                    self._tempo_sprite += -1
+            else:
+                if self.auto_fire:
+                    self.sprite = self.sprites[5]
+                else:
+                    self.sprite = self.sprites[0]
+                self._tempo_sprite = 0
+                self._sprite_count = 0
+
 
             # Move player.
             # Remove these lines if physics engine is moving player.
-            self.sprite.center_x += self.sprite.change_x
-            self.sprite.center_y += self.sprite.change_y
+            self.sprite.change_x = change_x
+            self.sprite.change_y = change_y
+            self.sprite.center_x = x + self.sprite.change_x
+            self.sprite.center_y = y + self.sprite.change_y
 
             # Check for out-of-bounds
             if self.sprite.left < 0:
@@ -58,6 +93,10 @@ class Player():
                 self.sprite.bottom = 0
             elif self.sprite.top > CONST.SCREEN_HEIGHT - 1:
                 self.sprite.top = CONST.SCREEN_HEIGHT - 1
+        else:
+            self.sprite = self.sprites[4]
+            self.sprite.center_x = x
+            self.sprite.center_y = y
 
     def draw(self):
         self.sprite.draw()
