@@ -3,6 +3,9 @@ import CONST
 from Player import Player
 from Supporter import Supporter
 from Bullets import Bullets
+from ProTrump import ProTrump
+from Redneck import Redneck
+from Boss import Boss
 #from Capitol import Capitol
 from Coequipier import Coequipier
 
@@ -48,7 +51,7 @@ class Manager(arcade.Window):
 
         self.player.draw()
         #self.capitol.draw()
-        #self.capitol.draw_health_bar()          
+        #self.capitol.draw_health_bar()
 
         #self.coequipier.draw()
         for b in self.bullets:
@@ -60,10 +63,11 @@ class Manager(arcade.Window):
 
     def on_update(self, delta_time):
         self.time = self.time + 1
-        
+
         # Create supporter
         if self.time % (self.spawn_interval * 60) == 0:
-            s = Supporter(CONST.SUPPORTER_MAX_HEALTH, 0, self.boost_speed)
+            # adding a ProTrump with boost_speed set to 1
+            s = ProTrump(1)
             self.supporters.append(s)
 
 
@@ -94,7 +98,7 @@ class Manager(arcade.Window):
                     break;
         self.bullets = [b for b in self.bullets if b.hit_points > 0]
         self.supporters = [s for s in self.supporters if s.hit_points > 0]
-        
+
         # Collisions player <-> supporters
         stunned = False
         for s in self.supporters:
