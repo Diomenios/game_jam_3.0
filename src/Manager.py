@@ -3,10 +3,14 @@ import CONST
 from Player import Player
 from Supporter import Supporter
 from Bullets import Bullets
+<<<<<<< HEAD
 from ProTrump import ProTrump
 from Redneck import Redneck
 from Boss import Boss
 #from Capitol import Capitol
+=======
+from Capitol import Capitol
+>>>>>>> 3f9e2aa83dd6677d29b33bb1f13ee8c7da587529
 from Coequipier import Coequipier
 
 class Manager(arcade.Window):
@@ -43,15 +47,14 @@ class Manager(arcade.Window):
         arcade.set_background_color(arcade.color.AMAZON)
 
         self.player = Player()
-        #self.capitol = Capitol()
+        self.capitol = Capitol()
 
 
     def on_draw(self):
         arcade.start_render()
 
         self.player.draw()
-        #self.capitol.draw()
-        #self.capitol.draw_health_bar()
+        self.capitol.draw()
 
         #self.coequipier.draw()
         for b in self.bullets:
@@ -109,6 +112,13 @@ class Manager(arcade.Window):
                 stunned = True
         if not stunned:
             self.player.stun = False
+        self.supporters = [s for s in self.supporters if s.hit_points > 0]
+
+        # Collisions capitol <-> supporters
+        for s in self.supporters:
+            if arcade.check_for_collision(self.capitol.sprite, s.sprite):
+                self.capitol.hit(s.damage)
+                s.hit_points = 0
         self.supporters = [s for s in self.supporters if s.hit_points > 0]
 
 
