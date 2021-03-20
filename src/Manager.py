@@ -2,9 +2,9 @@ import arcade
 import CONST
 from Player import Player
 from Supporter import Supporter
-#from Bullet import Bullet
-#from Capitol import Capitol
-#from Coequipier import Coequipier
+from Bullets import Bullets
+from Capitol import Capitol
+from Coequipier import Coequipier
 
 class Manager(arcade.Window):
     def __init__(self):
@@ -18,7 +18,7 @@ class Manager(arcade.Window):
         # Game parameters
         self.score = 0
         self.time = 0
-        self.spawn_interval = 5
+        self.spawn_interval = 0.5
         
         # Interaction parameters
         self.dirkey_change = False
