@@ -4,7 +4,7 @@ import random
 import math
 
 class Supporter():
-    def __init__(self, max_health, type, boost_speed):
+    def __init__(self, max_health, damage, boost_speed, type):
         # sprite inititialisation
         self.sprites =(
         arcade.Sprite("sprites/npc/all_redneck_mv.png", scale = CONST.SPRITE_SCALING_PLAYER,image_x = 0,image_y = 0,image_width = 66,image_height = 66),
@@ -45,6 +45,7 @@ class Supporter():
         self.max_health = max_health
         self.hit_points = max_health
         self.type = type
+        self.damage = damage
 
         self._sprite_count = 0
         self._tempo_sprite = 0

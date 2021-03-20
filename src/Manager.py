@@ -3,7 +3,10 @@ import CONST
 from Player import Player
 from Supporter import Supporter
 from Bullets import Bullets
-#from Capitol import Capitol
+from ProTrump import ProTrump
+from Redneck import Redneck
+from Boss import Boss
+from Capitol import Capitol
 from Coequipier import Coequipier
 
 class Manager(arcade.Window):
@@ -40,15 +43,14 @@ class Manager(arcade.Window):
         arcade.set_background_color(arcade.color.AMAZON)
 
         self.player = Player()
-        #self.capitol = Capitol()
+        self.capitol = Capitol()
 
 
     def on_draw(self):
         arcade.start_render()
 
         self.player.draw()
-        #self.capitol.draw()
-        #self.capitol.draw_health_bar()          
+        self.capitol.draw()
 
         #self.coequipier.draw()
         for b in self.bullets:
@@ -60,10 +62,11 @@ class Manager(arcade.Window):
 
     def on_update(self, delta_time):
         self.time = self.time + 1
-        
+
         # Create supporter
         if self.time % (self.spawn_interval * 60) == 0:
-            s = Supporter(CONST.SUPPORTER_MAX_HEALTH, 0, self.boost_speed)
+            # adding a ProTrump with boost_speed set to 1
+            s = ProTrump(1)
             self.supporters.append(s)
 
 
@@ -94,7 +97,7 @@ class Manager(arcade.Window):
                     break;
         self.bullets = [b for b in self.bullets if b.hit_points > 0]
         self.supporters = [s for s in self.supporters if s.hit_points > 0]
-        
+
         # Collisions player <-> supporters
         stunned = False
         for s in self.supporters:
@@ -105,6 +108,13 @@ class Manager(arcade.Window):
                 stunned = True
         if not stunned:
             self.player.stun = False
+        self.supporters = [s for s in self.supporters if s.hit_points > 0]
+
+        # Collisions capitol <-> supporters
+        for s in self.supporters:
+            if arcade.check_for_collision(self.capitol.sprite, s.sprite):
+                self.capitol.hit(s.damage)
+                s.hit_points = 0
         self.supporters = [s for s in self.supporters if s.hit_points > 0]
 
 
@@ -128,30 +138,30 @@ class Manager(arcade.Window):
             self.leftclick_pressed = False
 
     def on_key_press(self, key, modifiers):
-        if key == arcade.key.UP:
+        if key == arcade.key.Z:
             self.up_pressed = True
             self.dirkey_change = True
-        elif key == arcade.key.DOWN:
+        elif key == arcade.key.S:
             self.down_pressed = True
             self.dirkey_change = True
-        elif key == arcade.key.LEFT:
+        elif key == arcade.key.Q:
             self.left_pressed = True
             self.dirkey_change = True
-        elif key == arcade.key.RIGHT:
+        elif key == arcade.key.D:
             self.right_pressed = True
             self.dirkey_change = True
 
     def on_key_release(self, key, modifiers):
-        if key == arcade.key.UP:
+        if key == arcade.key.Z:
             self.up_pressed = False
             self.dirkey_change = True
-        elif key == arcade.key.DOWN:
+        elif key == arcade.key.S:
             self.down_pressed = False
             self.dirkey_change = True
-        elif key == arcade.key.LEFT:
+        elif key == arcade.key.Q:
             self.left_pressed = False
             self.dirkey_change = True
-        elif key == arcade.key.RIGHT:
+        elif key == arcade.key.D:
             self.right_pressed = False
             self.dirkey_change = True
 
