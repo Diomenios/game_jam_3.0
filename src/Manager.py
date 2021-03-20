@@ -48,6 +48,8 @@ class Manager(arcade.Window):
 
         self.player.draw()
         #self.capitol.draw()
+        #self.capitol.draw_health_bar()          
+
         #self.coequipier.draw()
         for b in self.bullets:
             b.draw()
