@@ -19,5 +19,5 @@ class Bullets():
         self.sprite.change_x = math.cos(angle) * CONST.BULLET_SPEED
         self.sprite.change_y = math.sin(angle) * CONST.BULLET_SPEED
 
-    def draw():
+    def draw(self):
         self.sprite.draw()
