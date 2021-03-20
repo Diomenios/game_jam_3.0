@@ -18,7 +18,7 @@ class Manager(arcade.Window):
         # Game parameters
         self.score = 0
         self.time = 0
-        self.spawn_interval = 5
+        self.spawn_interval = 0.5
         
         # Interaction parameters
         self.dirkey_change = False

@@ -41,16 +41,5 @@ class Supporter():
         self.sprite.center_x += self.sprite.change_x
         self.sprite.center_y += self.sprite.change_y
 
-        # Check for out-of-bounds
-        if self.sprite.left < 0:
-            self.sprite.left = 0
-        elif self.sprite.right > CONST.SCREEN_WIDTH - 1:
-            self.sprite.right = CONST.SCREEN_WIDTH - 1
-
-        if self.sprite.bottom < 0:
-            self.sprite.bottom = 0
-        elif self.sprite.top > CONST.SCREEN_HEIGHT - 1:
-            self.sprite.top = CONST.SCREEN_HEIGHT - 1
-
     def draw(self):
         self.sprite.draw()
