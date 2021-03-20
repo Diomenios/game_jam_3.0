@@ -75,5 +75,10 @@ class Player():
             # Create a bullet
             bullet = Bullets(self.sprite.center_x,self.sprite.center_y,dest_x,dest_y)
 
+            # Taking into account the angle, calculate our change_x
+            # and change_y. Velocity is how fast the bullet travels.
+            bullet.change_x = math.cos(angle) * CONST.BULLET_VEL
+            bullet.change_y = math.sin(angle) * CONST.BULLET_VEL 
+
         self.count += 1
         return bullet

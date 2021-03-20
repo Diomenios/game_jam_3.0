@@ -14,7 +14,7 @@ PLAYER_Y = SCREEN_HEIGHT/4
 PLAYER_INIT_VEL = 2
 
 # bullet Constants
-BULLET_VEL = 10
+BULLET_VEL = 5
 SPRITE_SCALING_BULLET = 0.8
 
 # capitol Constants
