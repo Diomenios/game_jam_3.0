@@ -1,14 +1,15 @@
 import arcade
+import math
 import CONST
 
 class Bullets():
 
     def __init__(self,start_x,start_y,dest_x,dest_y):
         # sprite initialisation
-        self.sprite = arcade.Sprite("sprite/player/ammo-1.png", CONST.SPRITE_SCALING_BULLET)
+        self.sprite = arcade.Sprite("sprites/player/ammo-1.png", CONST.SPRITE_SCALING_BULLET)
 
-        self.center_x = start_x
-        self.center_y = start_y
+        self.sprite.center_x = start_x
+        self.sprite.center_y = start_y
 
         x_diff = dest_x - start_x
         y_diff = dest_y - start_y
@@ -21,3 +22,6 @@ class Bullets():
 
     def draw(self):
         self.sprite.draw()
+        
+    def update(self):
+        self.sprite.update()
