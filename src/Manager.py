@@ -19,6 +19,7 @@ class Manager(arcade.Window):
         self.score = 0
         self.time = 0
         self.spawn_interval = 1
+        self.boost_speed = 1
 
         # Interaction parameters
         self.dirkey_change = False
@@ -60,7 +61,7 @@ class Manager(arcade.Window):
         
         # Create supporter
         if self.time % (self.spawn_interval * 60) == 0:
-            s = Supporter(CONST.SUPPORTER_MAX_HEALTH)
+            s = Supporter(CONST.SUPPORTER_MAX_HEALTH, self.boost_speed)
             self.supporters.append(s)
 
 

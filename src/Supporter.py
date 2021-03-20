@@ -4,7 +4,7 @@ import random
 import math
 
 class Supporter():
-    def __init__(self, max_health):
+    def __init__(self, max_health, boost_speed):
         # sprite inititialisation
         self.sprite = arcade.Sprite(":resources:images/animated_characters/female_person/femalePerson_idle.png", CONST.SPRITE_SCALING_SUPPORTER)
 
@@ -32,8 +32,8 @@ class Supporter():
 
         angle = math.atan2(y_diff, x_diff)
 
-        self.sprite.change_x = math.cos(angle) * CONST.SUPPORTER_INIT_VEL
-        self.sprite.change_y = math.sin(angle) * CONST.SUPPORTER_INIT_VEL
+        self.sprite.change_x = math.cos(angle) * CONST.SUPPORTER_INIT_VEL * boost_speed
+        self.sprite.change_y = math.sin(angle) * CONST.SUPPORTER_INIT_VEL * boost_speed
 
         self.max_health = max_health
         self.hit_points = max_health
