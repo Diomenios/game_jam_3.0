@@ -110,9 +110,12 @@ class Player():
 
     def fire(self, dest_x,dest_y):
         bullet = None
-        if self.auto_fire and not self.count%self.weapon.rate :
-            # Create a bullet
-            bullet = Bullets(self.sprite.center_x,self.sprite.center_y,dest_x,dest_y,self.weapon.ammo_dmg,self.weapon.ammo_vel,self.weapon.ammo_hit_point)
+        if self.auto_fire:
+            if not self.count%self.weapon.rate :
+                # Create a bullet
+                bullet = Bullets(self.sprite.center_x,self.sprite.center_y,dest_x,dest_y,self.weapon.ammo_dmg,self.weapon.ammo_vel,self.weapon.ammo_hit_point)
+            self.count += 1
+        else:
+            self.count = 0
 
-        self.count += 1
         return bullet
