@@ -3,14 +3,10 @@ import CONST
 from Player import Player
 from Supporter import Supporter
 from Bullets import Bullets
-<<<<<<< HEAD
 from ProTrump import ProTrump
 from Redneck import Redneck
 from Boss import Boss
-#from Capitol import Capitol
-=======
 from Capitol import Capitol
->>>>>>> 3f9e2aa83dd6677d29b33bb1f13ee8c7da587529
 from Coequipier import Coequipier
 
 class Manager(arcade.Window):
