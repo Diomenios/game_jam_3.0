@@ -29,6 +29,8 @@ class Manager(arcade.Window):
         self.leftclick_pressed = False
         self.leftclick_x = 0
         self.leftclick_y = 0
+        self.mouse_x = 0
+        self.mouse_y = 0
         
         super().__init__(CONST.SCREEN_WIDTH, CONST.SCREEN_HEIGHT, CONST.SCREEN_TITLE)
     
@@ -45,8 +47,8 @@ class Manager(arcade.Window):
         self.player.draw()
         #self.capitol.draw()
         #self.coequipier.draw()
-        #for b in self.bullets:
-        #    b.draw()
+        for b in self.bullets:
+            b.draw()
         #for s in supporters:
         #    s.draw()
             
@@ -58,11 +60,14 @@ class Manager(arcade.Window):
         # Distribute events
         self.distribute_events()
         
+        self.player.update()
+        for b in self.bullets:
+            b.update()
+        
         # Fire a bullet
-        bullet = self.player.fire(self.leftclick_x,self.leftclick_y)
+        bullet = self.player.fire(self.mouse_x,self.mouse_y)
         if bullet != None:
-            print(bullet)
-            #self.bullets.append(bullet)
+            self.bullets.append(bullet)
             
                   
     
@@ -73,6 +78,10 @@ class Manager(arcade.Window):
             self.leftclick_pressed = True
             self.leftclick_x = x
             self.leftclick_y = y
+            
+    def on_mouse_motion(self, x, y, dx, dy):
+        self.mouse_x = x
+        self.mouse_y = y
             
     def on_mouse_release(self, x, y, button, modifiers):
         if button == arcade.MOUSE_BUTTON_LEFT:
