@@ -4,7 +4,7 @@ import random
 import math
 
 class Supporter():
-    def __init__(self):
+    def __init__(self, max_health):
         # sprite inititialisation
         self.sprite = arcade.Sprite(":resources:images/animated_characters/female_person/femalePerson_idle.png", CONST.SPRITE_SCALING_PLAYER)
 
@@ -35,6 +35,9 @@ class Supporter():
         self.sprite.change_x = math.cos(angle) * CONST.SUPPORTER_INIT_VEL
         self.sprite.change_y = math.sin(angle) * CONST.SUPPORTER_INIT_VEL
 
+        self.sprite.max_health = max_health
+        self.sprite.hit_point = max_health
+
 
     def update(self):
         """ Move the supporter """
@@ -43,3 +46,22 @@ class Supporter():
 
     def draw(self):
         self.sprite.draw()
+
+    def draw_health_bar(self):
+        """ Draw the health bar """
+        # Draw the 'unhealthy' background
+        if self.sprite.hit_point < self.sprite.max_health:
+            arcade.draw_rectangle_filled(center_x=self.sprite.center_x,
+                                         center_y=self.sprite.center_y + CONST.SUPPORTER_HEALTHBAR_OFFSET_Y,
+                                         width=CONST.SUPPORTER_HEALTHBAR_WIDTH,
+                                         height=3,
+                                         color=arcade.color.WHITE)
+
+        # Calculate width based on health
+        health_width = CONST.SUPPORTER_HEALTHBAR_WIDTH * (self.sprite.hit_point / self.sprite.max_health)
+
+        arcade.draw_rectangle_filled(center_x=self.sprite.center_x - 0.5 * (CONST.SUPPORTER_HEALTHBAR_WIDTH - health_width),
+                                     center_y=self.sprite.center_y - 10,
+                                     width=health_width,
+                                     height=CONST.SUPPORTER_HEALTHBAR_HEIGHT,
+                                     color=arcade.color.BLUE)
