@@ -37,13 +37,13 @@ class Game(arcade.Window):
 
         # Don't show the mouse cursor
         self.set_mouse_visible(True)
-        
+
         # Track the current state of what key is pressed
         self.left_pressed = False
         self.right_pressed = False
         self.up_pressed = False
         self.down_pressed = False
-        
+
         # Load sounds. Sounds from kenney.nl
         self.gun_sound = arcade.sound.load_sound(":resources:sounds/laser1.wav")
         self.hit_sound = arcade.sound.load_sound(":resources:sounds/phaseJump1.wav")
@@ -93,12 +93,12 @@ class Game(arcade.Window):
         # Put the text on the screen.
         output = f"Score: {self.score}"
         arcade.draw_text(output, 10, 20, arcade.color.WHITE, 14)
-        
+
     def on_mouse_press(self, x, y, button, modifiers):
         """ Called whenever the mouse button is clicked. """
 
         # Create a bullet
-        bullet = arcade.Sprite(":resources:images/space_shooter/laserBlue01.png", CONST.SPRITE_SCALING_LASER)
+        bullet = arcade.Sprite("sprite/player/ammo-1.png", CONST.SPRITE_SCALING_LASER)
 
         # Position the bullet at the player's current location
         start_x = self.player_sprite.center_x
@@ -130,7 +130,7 @@ class Game(arcade.Window):
 
         # Add the bullet to the appropriate lists
         self.bullet_list.append(bullet)
-        
+
 
     def on_mouse_motion(self, x, y, dx, dy):
         """ Handle Mouse Motion """
@@ -138,7 +138,7 @@ class Game(arcade.Window):
         # Move the center of the player sprite to match the mouse x, y
         #self.player_sprite.center_x = x
         #self.player_sprite.center_y = y
-        
+
         arcade.draw_line(self.player_sprite.center_x, self.player_sprite.center_y, x, y, arcade.color.WOOD_BROWN, 3)
 
     def on_update(self, delta_time):
@@ -147,7 +147,7 @@ class Game(arcade.Window):
         # Call update on all sprites (The sprites don't do much in this
         # example though.)
         self.coin_list.update()
-        
+
         # Calculate speed based on the keys pressed
         self.player_sprite.change_x = 0
         self.player_sprite.change_y = 0
@@ -173,7 +173,7 @@ class Game(arcade.Window):
         for coin in coins_hit_list:
             coin.remove_from_sprite_lists()
             self.score += 1
-            
+
         # Call update on all sprites
         self.bullet_list.update()
 
@@ -195,7 +195,7 @@ class Game(arcade.Window):
             # If the bullet flies off-screen, remove it.
             if bullet.bottom > self.width or bullet.top < 0 or bullet.right < 0 or bullet.left > self.width:
                 bullet.remove_from_sprite_lists()
-            
+
     def on_key_press(self, key, modifiers):
         """Called whenever a key is pressed. """
 
