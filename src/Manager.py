@@ -18,6 +18,7 @@ class Manager(arcade.Window):
         # Game parameters
         self.score = 0
         self.time = 0
+        self.spawn_interval = 5
         
         # Interaction parameters
         self.dirkey_change = False
@@ -49,13 +50,18 @@ class Manager(arcade.Window):
         #self.coequipier.draw()
         for b in self.bullets:
             b.draw()
-        #for s in supporters:
-        #    s.draw()
+        for s in self.supporters:
+            s.draw()
             
  
     
     def on_update(self, delta_time):
         self.time = self.time + 1
+        
+        if self.time % (self.spawn_interval * 60) == 0:
+            s = Supporter()
+            self.supporters.append(s)
+        
         
         # Distribute events
         self.distribute_events()
@@ -63,6 +69,8 @@ class Manager(arcade.Window):
         self.player.update()
         for b in self.bullets:
             b.update()
+        for s in self.supporters:
+            s.update()    
         
         # Fire a bullet
         bullet = self.player.fire(self.mouse_x,self.mouse_y)
