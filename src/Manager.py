@@ -1,5 +1,6 @@
 import arcade
 import random
+import math
 import CONST
 from Player import Player
 from Supporter import Supporter
@@ -45,9 +46,9 @@ class Manager(arcade.Window):
 
         self.player = Player()
         self.capitol = Capitol()
+        self.coequipier = Coequipier()
         self.supporters = []
         self.bullets = []
-        self.coequipier = None
 
 
     def on_draw(self):
@@ -93,6 +94,21 @@ class Manager(arcade.Window):
         bullet = self.player.fire(self.mouse_x,self.mouse_y)
         if bullet != None:
             self.bullets.append(bullet)
+        
+        if self.coequipier is not None:
+            nearest = None
+            dist = 1e9
+            for s in self.supporters:
+                d = math.sqrt((s.sprite.center_x-CONST.SCREEN_WIDTH/2)**2 + (s.sprite.center_y-CONST.SCREEN_HEIGHT/2)**2)
+                if d < dist:
+                    dist = d
+                    nearest = s
+            if nearest is not None:
+                bullet = self.coequipier.fire(nearest.sprite.center_x,nearest.sprite.center_y)
+                if bullet != None:
+                    self.bullets.append(bullet)
+            
+         
 
         # Remove bullets & supporters
         self.bullets = [b for b in self.bullets if b.sprite.right > 0 and b.sprite.left < (CONST.SCREEN_WIDTH - 1) and b.sprite.bottom > 0 and b.sprite.top < (CONST.SCREEN_HEIGHT - 1)]
