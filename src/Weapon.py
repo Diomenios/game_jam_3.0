@@ -2,7 +2,7 @@ import arcade
 import CONST
 
 class Weapon():
-    def __init__(self,l):
+    def __init__(self):
         self.rate = 10
         self.ammo_vel = CONST.BULLET_INIT_VEL
         self.ammo_dmg = 1
