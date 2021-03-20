@@ -39,14 +39,16 @@ class Manager(arcade.Window):
         arcade.set_background_color(arcade.color.AMAZON)
         
         self.player = Player()
-        #self.capitol = Capitol()
+        self.capitol = Capitol()
         
         
     def on_draw(self):
         arcade.start_render()
         
         self.player.draw()
-        #self.capitol.draw()
+        self.capitol.draw()
+        self.capitol.draw_health_bar()          
+
         #self.coequipier.draw()
         for b in self.bullets:
             b.draw()
@@ -76,9 +78,7 @@ class Manager(arcade.Window):
         bullet = self.player.fire(self.mouse_x,self.mouse_y)
         if bullet != None:
             self.bullets.append(bullet)
-            
-                  
-    
+                
     """ EVENTS """
     
     def on_mouse_press(self, x, y, button, modifiers):
