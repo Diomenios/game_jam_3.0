@@ -73,7 +73,7 @@ class Player():
         bullet = None
         if self.auto_fire and not self.count%self.weapon.rate :
             # Create a bullet
-            bullet = Bullets()
+            bullet = Bullets(self.sprite.center_x,self.sprite.center_y,dest_x,dest_y)
 
         self.count += 1
         return bullet
