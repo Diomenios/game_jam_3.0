@@ -15,13 +15,13 @@ class Bullets():
         y_diff = dest_y - start_y
         angle = math.atan2(y_diff, x_diff)
 
-        self.sprite.angle = math.degrees(angle-90) # 90 degree add for the sprite format
+        self.sprite.angle = math.degrees(angle-(math.pi/2)) # 90 degree add for the sprite format
 
         self.sprite.change_x = math.cos(angle) * CONST.BULLET_VEL
         self.sprite.change_y = math.sin(angle) * CONST.BULLET_VEL
 
     def draw(self):
         self.sprite.draw()
-        
+
     def update(self):
         self.sprite.update()
