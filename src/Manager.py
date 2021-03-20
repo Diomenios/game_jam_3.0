@@ -112,7 +112,7 @@ class Manager(arcade.Window):
         stunned = False
         for s in self.supporters:
             if arcade.check_for_collision(self.player.sprite, s.sprite):
-                if s.type == 1:
+                if s.type == "Redneck":
                     s.hit_points -= CONST.REDNECK_HP_DECREASE
                 self.player.stun = True
                 stunned = True
