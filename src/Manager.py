@@ -2,9 +2,9 @@ import arcade
 import CONST
 from Player import Player
 from Supporter import Supporter
-#from Bullet import Bullet
-#from Capitol import Capitol
-#from Coequipier import Coequipier
+from Bullets import Bullets
+from Capitol import Capitol
+from Coequipier import Coequipier
 
 class Manager(arcade.Window):
     def __init__(self):
