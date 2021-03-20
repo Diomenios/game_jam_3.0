@@ -6,7 +6,7 @@ COIN_COUNT = 50
 SCREEN_WIDTH = 1280
 SCREEN_HEIGHT = 720
 SCREEN_TITLE = "Redneck Rumble"
-SPRITE_SCALING_LASER = 0.8
+
 
 # player Constants
 PLAYER_X = SCREEN_WIDTH /4
@@ -15,7 +15,7 @@ PLAYER_INIT_VEL = 2
 
 # bullet Constants
 BULLET_VEL = 10
-
+SPRITE_SCALING_BULLET = 0.8
 
 # capitol Constants
 CAPITOL_SHIELD = 10
