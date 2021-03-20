@@ -62,7 +62,7 @@ class Supporter():
         health_width = CONST.SUPPORTER_HEALTHBAR_WIDTH * (self.hit_points / self.max_health)
 
         arcade.draw_rectangle_filled(center_x=self.sprite.center_x - 0.5 * (CONST.SUPPORTER_HEALTHBAR_WIDTH - health_width),
-                                     center_y=self.sprite.center_y - 10,
+                                     center_y=self.sprite.center_y + CONST.SUPPORTER_HEALTHBAR_OFFSET_Y,
                                      width=health_width,
                                      height=CONST.SUPPORTER_HEALTHBAR_HEIGHT,
                                      color=arcade.color.BLUE)
