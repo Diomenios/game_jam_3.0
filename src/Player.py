@@ -1,9 +1,11 @@
 import arcade
 import CONST
+from Weapon import Weapon
+from Bullets import Bullets
 
 class Player():
     def __init__(self):
-        # sprite inititialisation
+        # sprite initialisation
         self.sprite = arcade.Sprite(":resources:images/animated_characters/female_person/femalePerson_idle.png", CONST.SPRITE_SCALING_PLAYER)
         self.up_pressed = 0
         self.down_pressed =  0
@@ -64,30 +66,7 @@ class Player():
     def fire(dest_x,dest_y):
         bullet = None
         if auto_fire and not self.count%self.weapon.rate :
-            # Create a bullet
-            bullet = arcade.Sprite("sprite/player/ammo-1.png", CONST.SPRITE_SCALING_LASER)
+            bullet = Bullets(self.sprite.center_x,self.sprite.center_y,dest_x,dest_y)
 
-            # Position the bullet at the player's current location
-            start_x = self.sprite.center_x
-            start_y = self.sprite.center_y
-            bullet.center_x = start_x
-            bullet.center_y = start_y
-
-
-            # Do math to calculate how to get the bullet to the destination.
-            # Calculation the angle in radians between the start points
-            # and end points. This is the angle the bullet will travel.
-            x_diff = dest_x - start_x
-            y_diff = dest_y - start_y
-            angle = math.atan2(y_diff, x_diff)
-
-            # Angle the bullet sprite so it doesn't look like it is flying
-            # sideways.
-            bullet.angle = math.degrees(angle)
-
-            # Taking into account the angle, calculate our change_x
-            # and change_y. Velocity is how fast the bullet travels.
-            bullet.change_x = math.cos(angle) * CONST.BULLET_SPEED
-            bullet.change_y = math.sin(angle) * CONST.BULLET_SPEED
         self.count += 1
         return bullet
