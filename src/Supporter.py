@@ -27,29 +27,30 @@ class Supporter():
         dest_x = CONST.SCREEN_WIDTH/2
         dest_y = CONST.SCREEN_HEIGHT/2
 
-        x_diff = dest_x - self.center_x
-        y_diff = dest_y - self.center_y
+        x_diff = dest_x - self.sprite.center_x
+        y_diff = dest_y - self.sprite.center_y
 
         angle = math.atan2(y_diff, x_diff)
 
-        self.change_x = math.cos(angle) * CONST.MOVEMENT_SPEED
-        self.change_y = math.sin(angle) * CONST.MOVEMENT_SPEED
+        self.sprite.change_x = math.cos(angle) * CONST.SUPPORTER_INIT_VEL
+        self.sprite.change_y = math.sin(angle) * CONST.SUPPORTER_INIT_VEL
+
 
     def update(self):
         """ Move the supporter """
-        self.center_x += self.change_x
-        self.center_y += self.change_y
+        self.sprite.center_x += self.sprite.change_x
+        self.sprite.center_y += self.sprite.change_y
 
         # Check for out-of-bounds
-        if self.left < 0:
-            self.left = 0
-        elif self.right > CONST.SCREEN_WIDTH - 1:
-            self.right = CONST.SCREEN_WIDTH - 1
+        if self.sprite.left < 0:
+            self.sprite.left = 0
+        elif self.sprite.right > CONST.SCREEN_WIDTH - 1:
+            self.sprite.right = CONST.SCREEN_WIDTH - 1
 
-        if self.bottom < 0:
-            self.bottom = 0
-        elif self.top > CONST.SCREEN_HEIGHT - 1:
-            self.top = CONST.SCREEN_HEIGHT - 1
+        if self.sprite.bottom < 0:
+            self.sprite.bottom = 0
+        elif self.sprite.top > CONST.SCREEN_HEIGHT - 1:
+            self.sprite.top = CONST.SCREEN_HEIGHT - 1
 
     def draw(self):
         self.sprite.draw()
