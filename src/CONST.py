@@ -1,4 +1,5 @@
 # --- Constants ---
+SPRITE_SCALING_PLAYER = .25
 SPRITE_SCALING_COIN = .15
 COIN_COUNT = 50
 
