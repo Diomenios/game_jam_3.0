@@ -4,7 +4,7 @@ import random
 import math
 
 class Supporter():
-    def __init__(self, max_health, boost_speed):
+    def __init__(self, max_health, boost_speed, type):
         # sprite inititialisation
         self.sprite = arcade.Sprite(":resources:images/animated_characters/female_person/femalePerson_idle.png", CONST.SPRITE_SCALING_SUPPORTER)
 
