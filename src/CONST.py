@@ -20,3 +20,6 @@ SPRITE_SCALING_BULLET = 0.8
 # capitol Constants
 CAPITOL_SHIELD = 10
 CAPITOL_HIT_POINT = 100
+
+# Supporter Constants
+SUPPORTER_INIT_VEL = 2
