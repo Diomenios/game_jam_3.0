@@ -35,8 +35,8 @@ class Supporter():
         self.sprite.change_x = math.cos(angle) * CONST.SUPPORTER_INIT_VEL
         self.sprite.change_y = math.sin(angle) * CONST.SUPPORTER_INIT_VEL
 
-        self.sprite.max_health = max_health
-        self.sprite.hit_point = max_health
+        self.max_health = max_health
+        self.hit_points = max_health
 
 
     def update(self):
@@ -46,11 +46,12 @@ class Supporter():
 
     def draw(self):
         self.sprite.draw()
+        self.draw_health_bar()
 
     def draw_health_bar(self):
         """ Draw the health bar """
         # Draw the 'unhealthy' background
-        if self.sprite.hit_point < self.sprite.max_health:
+        if self.hit_points < self.max_health:
             arcade.draw_rectangle_filled(center_x=self.sprite.center_x,
                                          center_y=self.sprite.center_y + CONST.SUPPORTER_HEALTHBAR_OFFSET_Y,
                                          width=CONST.SUPPORTER_HEALTHBAR_WIDTH,
@@ -58,7 +59,7 @@ class Supporter():
                                          color=arcade.color.WHITE)
 
         # Calculate width based on health
-        health_width = CONST.SUPPORTER_HEALTHBAR_WIDTH * (self.sprite.hit_point / self.sprite.max_health)
+        health_width = CONST.SUPPORTER_HEALTHBAR_WIDTH * (self.hit_points / self.max_health)
 
         arcade.draw_rectangle_filled(center_x=self.sprite.center_x - 0.5 * (CONST.SUPPORTER_HEALTHBAR_WIDTH - health_width),
                                      center_y=self.sprite.center_y - 10,

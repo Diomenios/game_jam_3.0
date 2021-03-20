@@ -3,7 +3,7 @@ import CONST
 from Player import Player
 from Supporter import Supporter
 from Bullets import Bullets
-from Capitol import Capitol
+#from Capitol import Capitol
 from Coequipier import Coequipier
 
 class Manager(arcade.Window):
@@ -18,7 +18,7 @@ class Manager(arcade.Window):
         # Game parameters
         self.score = 0
         self.time = 0
-        self.spawn_interval = 0.5
+        self.spawn_interval = 1
 
         # Interaction parameters
         self.dirkey_change = False
@@ -72,13 +72,12 @@ class Manager(arcade.Window):
             b.update()
         for s in self.supporters:
             s.update()
-            # Draw supporter's health bar
-            s.draw_health_bar()
 
         # Fire a bullet
         bullet = self.player.fire(self.mouse_x,self.mouse_y)
         if bullet != None:
             self.bullets.append(bullet)
+            print(bullet.hit_points)
 
         # Remove bullets & supporters
         self.bullets = [b for b in self.bullets if b.sprite.right > 0 and b.sprite.left < (CONST.SCREEN_WIDTH - 1) and b.sprite.bottom > 0 and b.sprite.top < (CONST.SCREEN_HEIGHT - 1)]
@@ -87,13 +86,13 @@ class Manager(arcade.Window):
         for b in self.bullets:
             for s in self.supporters:
                 if arcade.check_for_collision(b.sprite, s.sprite) and b.last_touch != s:
-                    s.hit_point -= b.damage
+                    s.hit_points -= b.damage
                     b.last_touch = s
-                    b.hit_point -= 1
+                    b.hit_points -= 1
                     break;
 
-        self.bullets = [b for b in self.bullets if b.hit_points <= 0]
-        self.supporters = [s for s in self.supporters if s.hit_points <= 0]
+        self.bullets = [b for b in self.bullets if b.hit_points > 0]
+        self.supporters = [s for s in self.supporters if s.hit_points > 0]
 
 
 

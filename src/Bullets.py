@@ -22,7 +22,7 @@ class Bullets():
 
         # bullet variable
         self.damage = dmg
-        self.hit_point = hp
+        self.hit_points = hp
         self.last_touch = None
 
     def draw(self):
