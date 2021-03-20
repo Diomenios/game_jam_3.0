@@ -21,7 +21,7 @@ class Bullets():
         self.sprite.change_y = math.sin(angle) * vel
 
         # bullet variable
-        self.domage = dmg
+        self.damage = dmg
         self.hit_point = hp
         self.last_touch = None
 

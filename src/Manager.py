@@ -57,7 +57,8 @@ class Manager(arcade.Window):
 
     def on_update(self, delta_time):
         self.time = self.time + 1
-
+        
+        # Create supporter
         if self.time % (self.spawn_interval * 60) == 0:
             s = Supporter(CONST.SUPPORTER_MAX_HEALTH)
             self.supporters.append(s)
@@ -78,6 +79,23 @@ class Manager(arcade.Window):
         bullet = self.player.fire(self.mouse_x,self.mouse_y)
         if bullet != None:
             self.bullets.append(bullet)
+
+        # Remove bullets & supporters
+        self.bullets = [b for b in self.bullets if b.sprite.right > 0 and b.sprite.left < (CONST.SCREEN_WIDTH - 1) and b.sprite.bottom > 0 and b.sprite.top < (CONST.SCREEN_HEIGHT - 1)]
+
+        # Collisions bullets <-> supporters
+        for b in self.bullets:
+            for s in self.supporters:
+                if arcade.check_for_collision(b.sprite, s.sprite) and b.last_touch != s:
+                    s.hit_point -= b.damage
+                    b.last_touch = s
+                    b.hit_point -= 1
+                    break;
+
+        self.bullets = [b for b in self.bullets if b.hit_points <= 0]
+        self.supporters = [s for s in self.supporters if s.hit_points <= 0]
+
+
 
 
 
