@@ -84,7 +84,10 @@ class Manager(arcade.Window):
         for b in self.bullets:
             b.update()
         for s in self.supporters:
-            s.update()
+            if s.type == "Redneck":
+                s.update(self.player.sprite.center_x, self.player.sprite.center_y)
+            else:
+                s.update()
 
         # Fire a bullet
         bullet = self.player.fire(self.mouse_x,self.mouse_y)
@@ -109,7 +112,7 @@ class Manager(arcade.Window):
         stunned = False
         for s in self.supporters:
             if arcade.check_for_collision(self.player.sprite, s.sprite):
-                if s.type == 1:
+                if s.type == "Redneck":
                     s.hit_points -= CONST.REDNECK_HP_DECREASE
                 self.player.stun = True
                 stunned = True
