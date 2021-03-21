@@ -22,7 +22,7 @@ from Strike import Strike
 
 
 class Manager(arcade.Window):
-    
+
     music = arcade.Sound("audios/background_music.mp3")
 
 
@@ -65,7 +65,7 @@ class Manager(arcade.Window):
         self.leftclick_x = 0
         self.leftclick_y = 0
         self.mouse_x = 0
-        self.mouse_y = 0  
+        self.mouse_y = 0
 
         self.background = None
         self.ui_manager = None
@@ -115,7 +115,7 @@ class Manager(arcade.Window):
     def end_game(self):
         if self.strike_button.already_clicked == "True" :
             Manager.music.stop(self.current_player)
-        else : 
+        else :
             self.strike_button.sound.stop(self.strike_button.manager)
 
         arcade.close_window()
@@ -160,7 +160,7 @@ class Manager(arcade.Window):
                 s.draw()
 
     def check_sound (self):
-        
+
         if self.strike_button.already_clicked == "True" :
             self.strike_button.already_clicked
             Manager.music.stop(self.current_player)
