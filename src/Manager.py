@@ -6,6 +6,7 @@ import math
 import CONST
 from moviepy.editor import *
 import pygame
+import time
 
 from Player import Player
 from Supporter import Supporter
@@ -17,8 +18,6 @@ from Capitol import Capitol
 from Coequipier import Coequipier
 from Tweet import Tweet
 from Gui import Gui
-
-
 
 class Manager(arcade.Window):
     def __init__(self):
@@ -61,6 +60,10 @@ class Manager(arcade.Window):
         self.mouse_y = 0
 
         self.background = None
+        self.music_list = []
+        self.current_song_index = 0
+        self.current_player = None
+        self.music = None
 
 
         super().__init__(CONST.SCREEN_WIDTH, CONST.SCREEN_HEIGHT, CONST.SCREEN_TITLE)
@@ -79,6 +82,11 @@ class Manager(arcade.Window):
 
         arcade.set_background_color(arcade.color.AMAZON)
         self.background = arcade.load_texture("sprites/bg/bg.jpg")
+        
+        self.music_list = ["audios/background_music.mp3"]
+        self.current_song_index = 0
+        self.music = arcade.Sound(self.music_list[self.current_song_index], streaming=True)
+        self.play_song()
 
 
     def end_game(self):
@@ -94,6 +102,17 @@ class Manager(arcade.Window):
 
         pygame.quit()
         exit()
+        
+    def advance_song(self):
+        self.current_song_index += 1
+        if self.current_song_index >= len(self.music_list):
+            self.current_song_index = 0
+    
+    def play_song(self):
+        #if self.music:
+        #    self.music.stop(self.current_player)
+        self.current_player = self.music.play(CONST.MUSIC_VOLUME)
+        time.sleep(0.03)
 
 
     def on_draw(self):
@@ -223,6 +242,10 @@ class Manager(arcade.Window):
             if self.gui.votes_count <= 0:
                 self.win_state = 1
                 self.end_game()
+                
+            if self.music.get_stream_position(self.current_player) == 0.0:
+                self.advance_song()
+                self.play_song()
 
     def upgrade(self, action):
         if action == "PL_ATK_2X":
