@@ -6,7 +6,7 @@ class Capitol():
     def __init__(self):
         self.sprite = arcade.Sprite("sprites/land/capitol-base.png", CONST.SPRITE_SCALING_CAPITOL)
 
-        self.max_shield = CONST.CAPITOL_SHIELD    
+        self.max_shield = CONST.CAPITOL_SHIELD
         self.shield = 0
 
         self.sprite.center_y = CONST.SCREEN_HEIGHT/2
@@ -18,26 +18,26 @@ class Capitol():
     def hit(self, damage):
         if self.shield != 0 :
             if self.shield <= damage :
-                
+
                 damage -= self.shield
                 self.shield = 0
                 self.switch_on_shield_view()
                 self.hit_point -= damage
             else :
                 self.shield -= damage
-        else :         
+        else :
             self.hit_point -= damage
 
     def add_shield_points(self, shield_points):
-        
+
         new_shield_points = self.shield() + shield_points
         self.shield = new_shield_points if new_shield_points <= self.max_shield else self.max_shield
 
     def draw(self):
         self.sprite.draw()
         self.draw_health_bar()
-        
-        if self.shield > 0 : 
+
+        if self.shield > 0 :
             self.draw_shield_bar()
             self.draw_shield_number()
         else:
