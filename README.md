@@ -11,8 +11,13 @@ Developped with ❤️ by **C'était mieux avant**
 
 ## Utilisation
 
-1. Open a terminal in `src` folder.
-2. Execute the following command : `python3 main.py`
+1. Open a terminal in `game_jam_3.0` folder.
+2. Install virtualenv with pip for Python 3 : `pip install virtualenv` 
+3. Launch a virtualenv : `virtualenv env`
+4. Activate virtualenv : `source env/bin/activate`
+5. Install requirements : `pip install -r requirements.txt`
+6. Move to `src`directory : `cd src/`
+7. Execute the following command : `python main.py`
 
 ## Code organisation
 
