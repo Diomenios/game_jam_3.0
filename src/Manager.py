@@ -125,7 +125,6 @@ class Manager(arcade.Window):
         for s in self.supporters:
             s.draw()
 
-
         self.tweet.draw()
 
     def on_update(self, delta_time):
