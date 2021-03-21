@@ -7,11 +7,11 @@ class Supporter():
     def __init__(self, max_health, damage, boost_speed, type):
         # sprite inititialisation
         self.sprites =(
-        arcade.Sprite("sprites/npc/all_redneck_mv.png", scale = CONST.SPRITE_SCALING_PLAYER,image_x = 0,image_y = 0,image_width = 66,image_height = 66),
-        arcade.Sprite("sprites/npc/all_redneck_mv.png", scale = CONST.SPRITE_SCALING_PLAYER,image_x = 66,image_y = 0,image_width = 66,image_height = 66),
-        arcade.Sprite("sprites/npc/all_redneck_mv.png", scale = CONST.SPRITE_SCALING_PLAYER,image_x = 122,image_y = 0,image_width = 66,image_height = 66),
-        arcade.Sprite("sprites/npc/all_redneck_mv.png", scale = CONST.SPRITE_SCALING_PLAYER,image_x = 188,image_y = 0,image_width = 66,image_height = 66),
-        arcade.Sprite("sprites/npc/all_redneck_mv.png", scale = CONST.SPRITE_SCALING_PLAYER,image_x = 254,image_y = 0,image_width = 66,image_height = 66),
+        arcade.Sprite("sprites/npc/all_"+type.lower()+"_mv.png", scale = CONST.SPRITE_SCALING_PLAYER,image_x = 0,image_y = 0,image_width = 66,image_height = 66),
+        arcade.Sprite("sprites/npc/all_"+type.lower()+"_mv.png", scale = CONST.SPRITE_SCALING_PLAYER,image_x = 66,image_y = 0,image_width = 66,image_height = 66),
+        arcade.Sprite("sprites/npc/all_"+type.lower()+"_mv.png", scale = CONST.SPRITE_SCALING_PLAYER,image_x = 122,image_y = 0,image_width = 66,image_height = 66),
+        arcade.Sprite("sprites/npc/all_"+type.lower()+"_mv.png", scale = CONST.SPRITE_SCALING_PLAYER,image_x = 188,image_y = 0,image_width = 66,image_height = 66),
+        arcade.Sprite("sprites/npc/all_"+type.lower()+"_mv.png", scale = CONST.SPRITE_SCALING_PLAYER,image_x = 254,image_y = 0,image_width = 66,image_height = 66)
         )
         self.sprite = self.sprites[0]
 
@@ -57,11 +57,20 @@ class Supporter():
         """ Move the supporter """
         x = self.sprite.center_x
         y = self.sprite.center_y
-        change_x = self.sprite.change_x 
+
+
+        self.change_animations()
+
+        self.sprite.center_x = self.sprite.change_x * self.boost_speed + x
+        self.sprite.center_y = self.sprite.change_y * self.boost_speed + y
+
+    def change_animations(self):
+
+        change_x = self.sprite.change_x
         change_y = self.sprite.change_y
 
         if self.hit_points > 0:
-            if self._tempo_sprite == 0 :
+            if self._tempo_sprite == 0:
                 self.sprite = self.sprites[self._sprite_count%4]
                 self._sprite_count += 1
                 self._tempo_sprite = CONST.TEMPO_ANNIMATION
@@ -72,8 +81,8 @@ class Supporter():
             self.sprite.change_y = change_y
         else:
             self.sprite = self.sprites[4]
-        self.sprite.center_x = self.sprite.change_x * self.boost_speed + x
-        self.sprite.center_y = self.sprite.change_y * self.boost_speed + y
+
+        
 
     def draw(self):
         self.sprite.draw()
