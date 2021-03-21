@@ -214,7 +214,7 @@ class Manager(arcade.Window):
         
         # Collisions capitol <-> bullets
         for b in self.bullets:
-            if arcade.check_for_collision(self.capitol.sprite, b.sprite):
+            if arcade.check_for_collision(self.capitol.sprite, b.sprite) and b.sender != "Coequipier":
                 b.hit_points = 0
         self.bullets = [b for b in self.bullets if b.hit_points > 0]     
 

@@ -113,7 +113,7 @@ class Player():
         if self.auto_fire and not self.stun:
             if not self.count%self.weapon.rate :
                 # Create a bullet
-                bullet = Bullets(self.sprite.center_x,self.sprite.center_y,dest_x,dest_y,self.weapon.ammo_dmg,self.weapon.ammo_vel,self.weapon.ammo_hit_point)
+                bullet = Bullets(self.sprite.center_x,self.sprite.center_y,dest_x,dest_y,self.weapon.ammo_dmg,self.weapon.ammo_vel,self.weapon.ammo_hit_point,"Player")
             self.count += 1
         else:
             self.count = 0

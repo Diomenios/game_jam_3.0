@@ -4,7 +4,7 @@ import CONST
 
 class Bullets():
 
-    def __init__(self,start_x,start_y,dest_x,dest_y,dmg,vel,hp):
+    def __init__(self,start_x,start_y,dest_x,dest_y,dmg,vel,hp, sender):
         # sprite initialisation
         self.sprite = arcade.Sprite("sprites/player/ammo-1.png", CONST.SPRITE_SCALING_BULLET)
 
@@ -24,6 +24,7 @@ class Bullets():
         self.damage = dmg
         self.hit_points = hp
         self.last_touch = None
+        self.sender = sender
 
     def draw(self):
         self.sprite.draw()
