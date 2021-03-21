@@ -67,8 +67,8 @@ class Manager(arcade.Window):
 
         self.player = Player()
         self.capitol = Capitol()
-        self.coequipier = Coequipier()
-        self.gui = Gui()
+        self.coequipier = None
+        self.gui = Gui(0,CONST.MAX_VOTES)
         self.supporters = []
         self.bullets = []
 
@@ -116,8 +116,7 @@ class Manager(arcade.Window):
         arcade.start_render()
 
         self.capitol.draw()
-        self.player.draw()
-        self.gui.draw(100, 200)
+        self.player.draw()        
 
         #self.coequipier.draw()
         for b in self.bullets:
@@ -126,9 +125,11 @@ class Manager(arcade.Window):
             s.draw()
 
         self.tweet.draw()
+        self.gui.draw()
 
     def on_update(self, delta_time):
         self.time = self.time + 1
+        self.gui.votes_count = int(CONST.MAX_VOTES - (self.time/60*2))
 
         # Create supporter
         if self.time % (self.spawn_interval * 60) == 0:
@@ -186,6 +187,8 @@ class Manager(arcade.Window):
             for s in self.supporters:
                 if arcade.check_for_collision(b.sprite, s.sprite) and b.last_touch != s:
                     s.hit_points -= b.damage
+                    if s.hit_points <= 0:
+                        self.gui.dollars_count += s.cashprize
                     b.last_touch = s
                     b.hit_points -= 1
                     break
@@ -225,7 +228,31 @@ class Manager(arcade.Window):
             self.win_state = 0
             self.end_game = 1
             arcade.close_window()
-
+            
+        """ WIN CONDITIONS """
+        if self.gui.votes_count <= 0:
+            self.stop = 1
+            self.win_state = 1
+            self.end_game = 1
+            arcade.close_window()
+    
+    def upgrade(self, action):
+        if action == "PL_ATK_2X":
+            self.player.weapon.ammo_dmg *= 2
+        elif action == "PL_SPD_2X":
+            self.player.weapon.rate /= 2
+        elif action == "PL_PT":
+            self.player.weapon.ammo_hit_point += 1
+        elif action == "SUPPORT":
+            self.coequipier = Coequipier()
+        elif action == "SUPPORT_ATK_2X":
+            self.coequipier.weapon.ammo_dmg *= 2
+        elif action == "SUPPORT_SPD_2X":
+            self.coequipier.weapon.rate /= 2
+        elif action == "SUPPORT_RNG_2X":
+            self.coequipier.range *= 2
+        elif action == "SHIELD":
+            self.capitol.shield += 30
 
     """ EVENTS """
 
@@ -234,6 +261,17 @@ class Manager(arcade.Window):
             self.leftclick_pressed = True
             self.leftclick_x = x
             self.leftclick_y = y
+        
+        a = arcade.SpriteList()
+        a.append(self.gui.col1_upgrade_sprite)
+        a.append(self.gui.col2_upgrade_sprite)
+        a.append(self.gui.col3_upgrade_sprite)
+        upgrade = arcade.get_sprites_at_point((x,y), a)
+        if len(upgrade) > 0:
+            upgrade = upgrade[-1]
+            action = self.gui.select_upgrade(upgrade)
+            self.upgrade(action)
+            
 
     def on_mouse_motion(self, x, y, dx, dy):
         self.mouse_x = x

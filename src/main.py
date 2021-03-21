@@ -6,12 +6,12 @@ import pygame
 
 def main():
     # first screen
-    pygame.display.set_caption('Redneck Rumble')
+    #pygame.display.set_caption('Redneck Rumble')
 
-    clip = VideoFileClip("video/begin_cut.mp4")
-    clip.preview()
+    #clip = VideoFileClip("video/begin_cut.mp4")
+    #clip.preview()
 
-    pygame.quit()
+    #pygame.quit()
 
     # game
     manager = Manager()
