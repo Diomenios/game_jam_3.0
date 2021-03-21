@@ -2,7 +2,7 @@
 TEMPO_ANIMATION = 10
 SPRITE_SCALING_COIN = .15
 SPRITE_SCALING_CAPITOL = 2
-COIN_COUNT = 50
+MAX_VOTES = 538
 
 SCREEN_WIDTH = 1280
 SCREEN_HEIGHT = 720
@@ -36,6 +36,9 @@ BOSS_MAX_HEALTH = 25
 PROTRUMP_DAMAGE = 50
 REDNECK_DAMAGE = 10
 BOSS_DAMAGE = 25
+PROTRUMP_CASHPRIZE = 20
+REDNECK_CASHPRIZE = 40
+BOSS_CASHPRIZE = 400
 REDNECK_HP_DECREASE = 5/60
 
 # Health Bar Drawing Text
@@ -67,12 +70,33 @@ DOLLARS_CENTER_X = 30
 DOLLARS_CENTER_Y = SCREEN_HEIGHT - 25
 SPRITE_SCALING_DOLLARS = 1
 
+DOLLARS_TEXT_OFFSET_X = 25
+DOLLARS_TEXT_OFFSET_Y = 10
+
 # Votes pannel position
-VOTES_CENTER_X = SCREEN_WIDTH - 200
+VOTES_CENTER_X = SCREEN_WIDTH - 250
 VOTES_CENTER_Y = SCREEN_HEIGHT - 35
 SPRITE_SCALING_VOTES = 0.75
+
+VOTES_TEXT_OFFSET_X = 100
+VOTES_TEXT_OFFSET_Y = 5
+VOTES_WIDTH = 170
+VOTES_HEIGHT = 30
+VOTES_OFFSET_Y = 5
+VOTES_OFFSET_X = 30
 
 # Items bar position
 ITEMS_BAR_CENTER_X = SCREEN_WIDTH/2
 ITEMS_BAR_CENTER_Y = 60
 SPRITE_SCALING_ITEMS_BAR = 1
+
+# Upgrades
+UPGRADES_COL1_NAMES = ["PL_ATK_2X", "PL_SPD_2X", "PL_ATK_2X", "PL_PT"]
+UPGRADES_COL1_SPRITES = ["sprites/gui/upgrade_double_damage.png","sprites/gui/upgrade_double_speed.png","sprites/gui/upgrade_double_damage.png","sprites/gui/upgrade_pierce_through.png"]
+UPGRADES_COL1_PRICES = [200, 200, 200, 200]
+UPGRADES_COL2_NAMES = ["SUPPORT","SUPPORT_ATK_2X", "SUPPORT_SPD_2X", "SUPPORT_RNG_2X"]
+UPGRADES_COL2_SPRITES = ["sprites/gui/upgrade_support.png","sprites/gui/upgrade_double_damage.png","sprites/gui/upgrade_double_speed.png","sprites/gui/upgrade_double_range.png"]
+UPGRADES_COL2_PRICES = [200, 200, 200, 200]
+UPGRADES_COL3_NAMES = ["SHIELD","SHIELD","SHIELD"]
+UPGRADES_COL3_SPRITES = ["sprites/gui/upgrade_shield.png","sprites/gui/upgrade_shield.png","sprites/gui/upgrade_shield.png"]
+UPGRADES_COL3_PRICES = [200,400,800]
