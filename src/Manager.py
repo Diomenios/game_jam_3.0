@@ -10,6 +10,7 @@ from Redneck import Redneck
 from Boss import Boss
 from Capitol import Capitol
 from Coequipier import Coequipier
+from Tweet import Tweet
 
 class Manager(arcade.Window):
     def __init__(self):
@@ -49,6 +50,8 @@ class Manager(arcade.Window):
         self.coequipier = Coequipier()
         self.supporters = []
         self.bullets = []
+        
+        self.tweet = Tweet()
 
 
     def on_draw(self):
@@ -62,6 +65,9 @@ class Manager(arcade.Window):
             b.draw()
         for s in self.supporters:
             s.draw()
+            
+            
+        self.tweet.draw()
 
 
 
@@ -82,6 +88,12 @@ class Manager(arcade.Window):
         self.distribute_events()
 
         self.player.update()
+        self.tweet.update()
+        
+        for s in self.supporters:
+            s.boost_speed = max(1,self.tweet.activated * CONST.TWEET_SPEED_BOOST)
+        self.boost_speed = max(1,self.tweet.activated * CONST.TWEET_SPEED_BOOST)
+            
         for b in self.bullets:
             b.update()
         for s in self.supporters:

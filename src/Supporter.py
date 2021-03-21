@@ -39,8 +39,8 @@ class Supporter():
 
         angle = math.atan2(y_diff, x_diff)
 
-        self.sprite.change_x = math.cos(angle) * CONST.SUPPORTER_INIT_VEL * boost_speed
-        self.sprite.change_y = math.sin(angle) * CONST.SUPPORTER_INIT_VEL * boost_speed
+        self.sprite.change_x = math.cos(angle) * CONST.SUPPORTER_INIT_VEL
+        self.sprite.change_y = math.sin(angle) * CONST.SUPPORTER_INIT_VEL
 
         self.max_health = max_health
         self.hit_points = max_health
@@ -49,13 +49,15 @@ class Supporter():
 
         self._sprite_count = 0
         self._tempo_sprite = 0
+        
+        self.boost_speed = boost_speed
 
 
     def update(self):
         """ Move the supporter """
         x = self.sprite.center_x
         y = self.sprite.center_y
-        change_x = self.sprite.change_x
+        change_x = self.sprite.change_x 
         change_y = self.sprite.change_y
 
         if self.hit_points > 0:
@@ -70,8 +72,8 @@ class Supporter():
             self.sprite.change_y = change_y
         else:
             self.sprite = self.sprites[4]
-        self.sprite.center_x = self.sprite.change_x + x
-        self.sprite.center_y = self.sprite.change_y + y
+        self.sprite.center_x = self.sprite.change_x * self.boost_speed + x
+        self.sprite.center_y = self.sprite.change_y * self.boost_speed + y
 
     def draw(self):
         self.sprite.draw()
