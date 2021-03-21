@@ -72,7 +72,7 @@ class Supporter():
         change_x = self.sprite.change_x
         change_y = self.sprite.change_y
 
-        if self.hit_points > 1:
+        if self.hit_points > 5:
             if self._tempo_sprite == 0:
                 self.sprite = self.sprites[self._sprite_count%4]
                 self._sprite_count += 1

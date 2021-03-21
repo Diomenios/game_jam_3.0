@@ -65,7 +65,7 @@ class Manager(arcade.Window):
         self.leftclick_x = 0
         self.leftclick_y = 0
         self.mouse_x = 0
-        self.mouse_y = 0
+        self.mouse_y = 0  
 
         self.background = None
         self.ui_manager = None
@@ -113,7 +113,12 @@ class Manager(arcade.Window):
 
 
     def end_game(self):
-        self.music.stop(self.current_player)
+        if self.strike_button.already_clicked == "True" :
+            Manager.music.stop(self.current_player)
+
+        else : 
+            self.strike_button.sound.stop(self.strike_button.manager)
+
         arcade.close_window()
         self.off = 1
 
@@ -232,7 +237,7 @@ class Manager(arcade.Window):
                         b.hit_points -= 1
                         break
             self.bullets = [b for b in self.bullets if b.hit_points > 0]
-            self.supporters = [s for s in self.supporters if s.hit_points > 0]
+            self.supporters = [s for s in self.supporters if (s.hit_points > 0 and not s.type == "Boss")]
 
             # Remove bullets
             self.bullets = [b for b in self.bullets if b.sprite.right > 0 and b.sprite.left < (CONST.SCREEN_WIDTH - 1) and b.sprite.bottom > 0 and b.sprite.top < (CONST.SCREEN_HEIGHT - 1)]
