@@ -3,6 +3,7 @@ import CONST
 import math
 from Weapon import Weapon
 from Bullets import Bullets
+import time
 
 class Coequipier():
     def __init__(self):
@@ -24,7 +25,8 @@ class Coequipier():
         if not self.count%self.weapon.rate :
             # Create a bullet
             bullet = Bullets(self.sprite.center_x,self.sprite.center_y,dest_x,dest_y,self.weapon.ammo_dmg,self.weapon.ammo_vel,self.weapon.ammo_hit_point, "Coequipier")
-            self.sound.play(CONST.MUSIC_VOLUME*0.5)
+            self.sound.play()
+            time.sleep(0.03)
         self.count += 1
 
         return bullet

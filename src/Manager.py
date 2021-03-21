@@ -46,7 +46,7 @@ class Manager(arcade.Window):
         # Game parameters
         self.score = 0
         self.time = 0
-        self.spawn_interval = 1.5
+        self.spawn_interval = 5
         self.boost_speed = 1
         self.win_state = 0
         self.off = 0
@@ -98,13 +98,13 @@ class Manager(arcade.Window):
             normal_texture=self.button_normal,
             hover_texture=self.button_hovered_texture,
             text=''
-            )
-    
+        )
+
         self.ui_manager.add_ui_element(self.strike_button)
 
         arcade.set_background_color(arcade.color.AMAZON)
-        self.background = arcade.load_texture("sprites/bg/bg.jpg")
-        
+        self.background = arcade.load_texture("tileset/background.png")
+
 
         self.music_list = ["audios/background_music.mp3"]
         self.current_song_index = 0
@@ -133,8 +133,6 @@ class Manager(arcade.Window):
             self.current_song_index = 0
 
     def play_song(self):
-        #if self.music:
-        #    self.music.stop(self.current_player)
         self.current_player = self.music.play(CONST.MUSIC_VOLUME)
         time.sleep(0.03)
 
@@ -142,6 +140,7 @@ class Manager(arcade.Window):
     def on_draw(self):
         if not self.off:
             arcade.start_render()
+            arcade.draw_lrwh_rectangle_textured(0, 0,CONST.SCREEN_WIDTH, CONST.SCREEN_HEIGHT,self.background)
 
             self.capitol.draw()
             self.player.draw()
@@ -173,14 +172,14 @@ class Manager(arcade.Window):
             self.gui.votes_count = int(CONST.MAX_VOTES - (self.time/60*2))
 
             # Create supporter
-            if self.time % (self.spawn_interval * 60) == 0:
+            if self.time % (self.spawn_interval * 20) == 0:
                 r = random.random()
                 if r < CONST.REDNECK_PROBABILITY:
                     s = Redneck(1)
                 else:
                     s = ProTrump(1)
                 self.supporters.append(s)
-            if self.gui.votes_count <= 450 and not self.boss:
+            if self.gui.votes_count <= 60 and not self.boss:
                 self.supporters.append(Boss(1))
                 self.boss = True
 
@@ -190,7 +189,7 @@ class Manager(arcade.Window):
 
             self.player.update()
             self.tweet.update()
-                
+
 
             for s in self.supporters:
                 s.boost_speed = max(1,self.tweet.activated * CONST.TWEET_SPEED_BOOST)
@@ -277,10 +276,13 @@ class Manager(arcade.Window):
                 self.end_game()
 
             if self.music.get_stream_position(self.current_player) == 0.0:
-                self.advance_song()
+            #    self.advance_song()
                 self.play_song()
 
     def upgrade(self, action):
+        if self.spawn_interval > 2:
+            self.spawn_interval += -1
+
         if action == "PL_ATK_2X":
             self.player.weapon.ammo_dmg *= 2
         elif action == "PL_SPD_2X":
