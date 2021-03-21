@@ -42,7 +42,7 @@ class Manager(arcade.Window):
         # Game parameters
         self.score = 0
         self.time = 0
-        self.spawn_interval = 3
+        self.spawn_interval = 5
         self.boost_speed = 1
         self.win_state = 0
         self.off = 0
@@ -162,7 +162,7 @@ class Manager(arcade.Window):
             self.gui.votes_count = int(CONST.MAX_VOTES - (self.time/60*2))
 
             # Create supporter
-            if self.time % (self.spawn_interval * 60) == 0:
+            if self.time % (self.spawn_interval * 20) == 0:
                 r = random.random()
                 if r < CONST.REDNECK_PROBABILITY:
                     s = Redneck(1)
