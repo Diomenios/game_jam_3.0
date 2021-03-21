@@ -233,6 +233,7 @@ class Manager(arcade.Window):
                     b.hit_points = 0
             self.bullets = [b for b in self.bullets if b.hit_points > 0]
 
+            print(len(self.bullets))
 
             """ ENDING CONDITIONS """
             if self.capitol.hit_point <= 0:

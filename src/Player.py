@@ -24,7 +24,7 @@ class Player():
         self.auto_fire = 0
         self.stun = 0
         self.count = 0
-        self.sound = arcade.Sound("audios/gun-1.ogg")
+        self.sound = arcade.Sound("audios/gun-1.mp3")
 
         self._sprite_count = 0
         self._tempo_sprite = 0
