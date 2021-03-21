@@ -10,6 +10,8 @@ from Redneck import Redneck
 from Boss import Boss
 from Capitol import Capitol
 from Coequipier import Coequipier
+from Tweet import Tweet
+from Gui import Gui
 
 class Manager(arcade.Window):
     def __init__(self):
@@ -19,6 +21,7 @@ class Manager(arcade.Window):
         self.bullets = []
         self.capitol = None
         self.coequipier = None
+        self.gui = None
 
         # Game parameters
         self.score = 0
@@ -47,8 +50,11 @@ class Manager(arcade.Window):
         self.player = Player()
         self.capitol = Capitol()
         self.coequipier = Coequipier()
+        self.gui = Gui()
         self.supporters = []
         self.bullets = []
+        
+        self.tweet = Tweet()
 
 
     def on_draw(self):
@@ -56,12 +62,16 @@ class Manager(arcade.Window):
 
         self.player.draw()
         self.capitol.draw()
+        self.gui.draw()
 
         #self.coequipier.draw()
         for b in self.bullets:
             b.draw()
         for s in self.supporters:
             s.draw()
+            
+            
+        self.tweet.draw()
 
 
 
@@ -82,6 +92,12 @@ class Manager(arcade.Window):
         self.distribute_events()
 
         self.player.update()
+        self.tweet.update()
+        
+        for s in self.supporters:
+            s.boost_speed = max(1,self.tweet.activated * CONST.TWEET_SPEED_BOOST)
+        self.boost_speed = max(1,self.tweet.activated * CONST.TWEET_SPEED_BOOST)
+            
         for b in self.bullets:
             b.update()
         for s in self.supporters:
@@ -120,7 +136,7 @@ class Manager(arcade.Window):
                     s.hit_points -= b.damage
                     b.last_touch = s
                     b.hit_points -= 1
-                    break;
+                    break
         self.bullets = [b for b in self.bullets if b.hit_points > 0]
         self.supporters = [s for s in self.supporters if s.hit_points > 0]
 
