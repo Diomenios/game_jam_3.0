@@ -47,6 +47,7 @@ class Manager(arcade.Window):
         self.win_state = 0
         self.off = 0
         self.retry = 0
+        self.weapon_count = 0
 
         # Interaction parameters
         self.dirkey_change = False
@@ -104,6 +105,7 @@ class Manager(arcade.Window):
             self.capitol.draw()
             self.player.draw()
             self.gui.draw()
+            self.tweet.draw()
 
 
             #self.coequipier.draw()
@@ -112,8 +114,7 @@ class Manager(arcade.Window):
             for s in self.supporters:
                 s.draw()
 
-            self.tweet.draw()
-            self.gui.draw()
+
 
 
 
@@ -229,7 +230,9 @@ class Manager(arcade.Window):
         if action == "PL_ATK_2X":
             self.player.weapon.ammo_dmg *= 2
         elif action == "PL_SPD_2X":
+            self.weapon_count +=1
             self.player.weapon.rate /= 2
+            self.gui.weapon_sprite = arcade.Sprite(CONST.WEAPON_SPRITE[self.weapon_count], CONST.SPRITE_SCALING_WEAPON)
         elif action == "PL_PT":
             self.player.weapon.ammo_hit_point += 1
         elif action == "SUPPORT":

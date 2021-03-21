@@ -65,6 +65,12 @@ TWEET_CENTER_X = SCREEN_WIDTH / 2
 TWEET_CENTER_Y = SCREEN_HEIGHT - 100
 TWEET_SPEED_BOOST = 2
 
+# Weapon icon position
+WEAPON_CENTER_X = 50
+WEAPON_CENTER_Y = 25
+SPRITE_SCALING_WEAPON = 1
+WEAPON_SPRITE = ["sprites/player/weapon-1.png","sprites/player/weapon-2.png","sprites/player/weapon-3.png"]
+
 # Dollars icons position
 DOLLARS_CENTER_X = 30
 DOLLARS_CENTER_Y = SCREEN_HEIGHT - 25
