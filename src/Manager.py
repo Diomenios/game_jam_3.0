@@ -83,7 +83,7 @@ class Manager(arcade.Window):
         self.tweet = Tweet()
 
         arcade.set_background_color(arcade.color.AMAZON)
-        self.background = arcade.load_texture("sprites/bg/bg.jpg")
+        self.background = arcade.load_texture("tileset/background.png")
         
         self.music_list = ["audios/background_music.mp3"]
         self.current_song_index = 0
@@ -112,8 +112,6 @@ class Manager(arcade.Window):
             self.current_song_index = 0
     
     def play_song(self):
-        #if self.music:
-        #    self.music.stop(self.current_player)
         self.current_player = self.music.play(CONST.MUSIC_VOLUME)
         time.sleep(0.03)
 
@@ -121,14 +119,13 @@ class Manager(arcade.Window):
     def on_draw(self):
         if not self.off:
             arcade.start_render()
+            arcade.draw_lrwh_rectangle_textured(0, 0,CONST.SCREEN_WIDTH, CONST.SCREEN_HEIGHT,self.background)
 
             self.capitol.draw()
             self.player.draw()
             self.gui.draw()
             self.tweet.draw()
 
-
-            #self.coequipier.draw()
             for b in self.bullets:
                 b.draw()
             for s in self.supporters:
