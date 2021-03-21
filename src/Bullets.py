@@ -6,7 +6,13 @@ class Bullets():
 
     def __init__(self,start_x,start_y,dest_x,dest_y,dmg,vel,hp, sender):
         # sprite initialisation
-        self.sprite = arcade.Sprite("sprites/player/ammo-1.png", CONST.SPRITE_SCALING_BULLET)
+        if dmg == 1:
+            path = "sprites/player/ammo-1.png"
+        elif dmg == 2:
+            path = "sprites/player/ammo-2.png"
+        else:
+            path = "sprites/player/ammo-3.png"
+        self.sprite = arcade.Sprite(path, CONST.SPRITE_SCALING_BULLET)
 
         self.sprite.center_x = start_x
         self.sprite.center_y = start_y
