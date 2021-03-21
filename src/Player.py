@@ -64,7 +64,7 @@ class Player():
                 if self._tempo_sprite == 0 :
                     self.sprite = self.sprites[self._sprite_count%4]
                     self._sprite_count += 1
-                    self._tempo_sprite = CONST.TEMPO_ANNIMATION
+                    self._tempo_sprite = CONST.TEMPO_ANIMATION
                 else:
                     self._tempo_sprite += -1
             else:
