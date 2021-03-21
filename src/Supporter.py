@@ -49,7 +49,7 @@ class Supporter():
 
         self._sprite_count = 0
         self._tempo_sprite = 0
-        
+
         self.boost_speed = boost_speed
         self.cashprize = cashprize
 
@@ -71,9 +71,7 @@ class Supporter():
         change_y = self.sprite.change_y
 
         if self.hit_points > 0:
-            if self.type == "Redneck" and self.is_on_player:
-                self.sprite = self.sprites[0]
-            elif self._tempo_sprite == 0:
+            if self._tempo_sprite == 0:
                 self.sprite = self.sprites[self._sprite_count%4]
                 self._sprite_count += 1
                 self._tempo_sprite = CONST.TEMPO_ANIMATION
@@ -85,7 +83,7 @@ class Supporter():
         else:
             self.sprite = self.sprites[4]
 
-        
+
 
     def draw(self):
         self.sprite.draw()

@@ -22,7 +22,7 @@ class Redneck(Supporter):
         x = self.sprite.center_x
         y = self.sprite.center_y
 
-        super().change_animations()
+        self.change_animations()
 
         if player_x > self.sprite.center_x:
             self.sprite.center_x = self.sprite.change_x + x
@@ -33,3 +33,23 @@ class Redneck(Supporter):
             self.sprite.center_y = self.sprite.change_y + y
         elif player_y < self.sprite.center_y:
             self.sprite.center_y = self.sprite.change_y + y
+
+    def change_animations(self):
+
+        change_x = self.sprite.change_x
+        change_y = self.sprite.change_y
+
+        if self.hit_points > 0:
+            if self.is_on_player:
+                self.sprite = self.sprites[0]
+            elif self._tempo_sprite == 0:
+                self.sprite = self.sprites[self._sprite_count%4]
+                self._sprite_count += 1
+                self._tempo_sprite = CONST.TEMPO_ANIMATION
+            else:
+                self._tempo_sprite -= 1
+
+            self.sprite.change_x = change_x
+            self.sprite.change_y = change_y
+        else:
+            self.sprite = self.sprites[4]
