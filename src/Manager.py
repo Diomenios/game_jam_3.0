@@ -9,6 +9,7 @@ from Redneck import Redneck
 from Boss import Boss
 from Capitol import Capitol
 from Coequipier import Coequipier
+from Gui import Gui
 
 class Manager(arcade.Window):
     def __init__(self):
@@ -18,6 +19,7 @@ class Manager(arcade.Window):
         self.bullets = []
         self.capitol = None
         self.coequipier = None
+        self.gui = None
 
         # Game parameters
         self.score = 0
@@ -45,6 +47,7 @@ class Manager(arcade.Window):
 
         self.player = Player()
         self.capitol = Capitol()
+        self.gui = Gui()
         self.supporters = []
         self.bullets = []
         self.coequipier = None
@@ -55,6 +58,7 @@ class Manager(arcade.Window):
 
         self.player.draw()
         self.capitol.draw()
+        self.gui.draw()
 
         #self.coequipier.draw()
         for b in self.bullets:
