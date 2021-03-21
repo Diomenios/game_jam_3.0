@@ -25,7 +25,6 @@ class Manager(arcade.Window):
     
     music = arcade.Sound("audios/background_music.mp3")
 
-
     def __init__(self):
         # show history
         pygame.display.set_caption('Redneck Rumble')
