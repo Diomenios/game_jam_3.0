@@ -59,6 +59,8 @@ class Manager(arcade.Window):
         self.leftclick_y = 0
         self.mouse_x = 0
         self.mouse_y = 0
+        
+        self.background = None
 
 
         super().__init__(CONST.SCREEN_WIDTH, CONST.SCREEN_HEIGHT, CONST.SCREEN_TITLE)
@@ -75,6 +77,8 @@ class Manager(arcade.Window):
         self.tweet = Tweet()
 
         arcade.set_background_color(arcade.color.AMAZON)
+        self.background = arcade.load_texture("sprites/bg/bg.jpg")
+
 
     def setup_retry(self):
         # Objects
@@ -102,9 +106,11 @@ class Manager(arcade.Window):
         self.leftclick_y = 0
         self.mouse_x = 0
         self.mouse_y = 0
+        
+        
 
         arcade.set_background_color(arcade.color.BLACK)
-
+        
         arcade.gui.UIClickable(center_x=SCREEN_WIDTH /2, center_y=SCREEN_HEIGHT/2)
 
     def close_retry(self):
@@ -114,6 +120,7 @@ class Manager(arcade.Window):
 
     def on_draw(self):
         arcade.start_render()
+        #arcade.draw_lrwh_rectangle_textured(0, 0,CONST.SCREEN_WIDTH, CONST.SCREEN_HEIGHT,self.background)
 
         self.capitol.draw()
         self.player.draw()        
