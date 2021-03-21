@@ -13,7 +13,7 @@ Developped with ❤️ by **C'était mieux avant**
 
 1. Open a terminal in `game_jam_3.0` folder.
 2. Install virtualenv with pip for Python 3 : `pip install virtualenv` 
-3. Launch a virtualenv : `virtualenv env`
+3. Launch a virtualenv : `virtualenv -p python3 env`
 4. Activate virtualenv : `source env/bin/activate`
 5. Install requirements : `pip install -r requirements.txt`
 6. Move to `src`directory : `cd src/`
