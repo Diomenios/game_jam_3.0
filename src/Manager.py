@@ -1,5 +1,5 @@
 import arcade
-import arcade.gui
+from arcade.gui import *
 
 import random
 import math
@@ -18,6 +18,8 @@ from Capitol import Capitol
 from Coequipier import Coequipier
 from Tweet import Tweet
 from Gui import Gui
+from Strike import Strike
+
 
 class Manager(arcade.Window):
     def __init__(self):
@@ -40,7 +42,7 @@ class Manager(arcade.Window):
         # Game parameters
         self.score = 0
         self.time = 0
-        self.spawn_interval = 1
+        self.spawn_interval = 1.5
         self.boost_speed = 1
         self.win_state = 0
         self.off = 0
@@ -62,11 +64,15 @@ class Manager(arcade.Window):
         self.mouse_y = 0
 
         self.background = None
+        self.ui_manager = None
         self.music_list = []
         self.current_song_index = 0
         self.current_player = None
         self.music = None
 
+        self.strike_button = None
+        self.button_normal = arcade.load_texture("sprites/gui/strike2.png")
+        self.button_hovered_texture = arcade.load_texture("sprites/gui/strike_over2.png")
 
         super().__init__(CONST.SCREEN_WIDTH, CONST.SCREEN_HEIGHT, CONST.SCREEN_TITLE)
 
@@ -79,12 +85,24 @@ class Manager(arcade.Window):
         self.gui = Gui(0,CONST.MAX_VOTES)
         self.supporters = []
         self.bullets = []
+        self.ui_manager = UIManager()
 
         self.tweet = Tweet()
+
+        self.strike_button = Strike(
+            center_x = CONST.STRIKE_BUTTON_X,
+            center_y = CONST.STRIKE_BUTTON_Y,
+            normal_texture=self.button_normal,
+            hover_texture=self.button_hovered_texture,
+            text='',
+        )
+    
+        self.ui_manager.add_ui_element(self.strike_button)
 
         arcade.set_background_color(arcade.color.AMAZON)
         self.background = arcade.load_texture("tileset/background.png")
         
+
         self.music_list = ["audios/background_music.mp3"]
         self.current_song_index = 0
         self.music = arcade.Sound(self.music_list[self.current_song_index], streaming=True)
@@ -105,12 +123,12 @@ class Manager(arcade.Window):
 
         pygame.quit()
         exit()
-        
+
     def advance_song(self):
         self.current_song_index += 1
         if self.current_song_index >= len(self.music_list):
             self.current_song_index = 0
-    
+
     def play_song(self):
         self.current_player = self.music.play(CONST.MUSIC_VOLUME)
         time.sleep(0.03)
@@ -126,6 +144,9 @@ class Manager(arcade.Window):
             self.gui.draw()
             self.tweet.draw()
 
+            self.strike_button.draw()
+
+            #self.coequipier.draw()
             for b in self.bullets:
                 b.draw()
             for s in self.supporters:
@@ -202,7 +223,7 @@ class Manager(arcade.Window):
                         break
             self.bullets = [b for b in self.bullets if b.hit_points > 0]
             self.supporters = [s for s in self.supporters if s.hit_points > 0]
-            
+
             # Remove bullets
             self.bullets = [b for b in self.bullets if b.sprite.right > 0 and b.sprite.left < (CONST.SCREEN_WIDTH - 1) and b.sprite.bottom > 0 and b.sprite.top < (CONST.SCREEN_HEIGHT - 1)]
 
@@ -242,7 +263,7 @@ class Manager(arcade.Window):
             if self.gui.votes_count <= 0:
                 self.win_state = 1
                 self.end_game()
-                
+
             if self.music.get_stream_position(self.current_player) == 0.0:
                 self.advance_song()
                 self.play_song()
