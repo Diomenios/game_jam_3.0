@@ -24,6 +24,7 @@ class Player():
         self.auto_fire = 0
         self.stun = 0
         self.count = 0
+        self.sound = arcade.Sound("audios/gun-1.ogg")
 
         self._sprite_count = 0
         self._tempo_sprite = 0
@@ -113,6 +114,7 @@ class Player():
             if not self.count%self.weapon.rate :
                 # Create a bullet
                 bullet = Bullets(self.sprite.center_x,self.sprite.center_y,dest_x,dest_y,self.weapon.ammo_dmg,self.weapon.ammo_vel,self.weapon.ammo_hit_point,"Player")
+                self.sound.play()
             self.count += 1
         else:
             self.count = 0

@@ -3,6 +3,7 @@ TEMPO_ANIMATION = 10
 SPRITE_SCALING_COIN = .15
 SPRITE_SCALING_CAPITOL = 2
 MAX_VOTES = 538
+MUSIC_VOLUME = 0.25
 
 SCREEN_WIDTH = 1280
 SCREEN_HEIGHT = 720
@@ -60,12 +61,18 @@ SUPPORT_RANGE = 300
 
 # Tweet constants
 TWEET_START_TIME = 120 * 60
-TWEET_END_TIME = 240 * 60
-TWEET_DURATION = 30 * 60
+TWEET_END_TIME = 180 * 60
+TWEET_DURATION = 20 * 60
 SPRITE_SCALING_TWEET = 0.40
 TWEET_CENTER_X = SCREEN_WIDTH / 2
 TWEET_CENTER_Y = SCREEN_HEIGHT - 100
 TWEET_SPEED_BOOST = 2
+
+# Weapon icon position
+WEAPON_CENTER_X = 100
+WEAPON_CENTER_Y = 50
+SPRITE_SCALING_WEAPON = 1
+WEAPON_SPRITE = ["sprites/player/weapon-1.png","sprites/player/weapon-2.png","sprites/player/weapon-3.png"]
 
 # Dollars icons position
 DOLLARS_CENTER_X = 30
@@ -93,12 +100,16 @@ ITEMS_BAR_CENTER_Y = 60
 SPRITE_SCALING_ITEMS_BAR = 1
 
 # Upgrades
-UPGRADES_COL1_NAMES = ["PL_ATK_2X", "PL_SPD_2X", "PL_ATK_2X", "PL_PT"]
-UPGRADES_COL1_SPRITES = ["sprites/gui/upgrade_double_damage.png","sprites/gui/upgrade_double_speed.png","sprites/gui/upgrade_double_damage.png","sprites/gui/upgrade_pierce_through.png"]
-UPGRADES_COL1_PRICES = [200, 200, 200, 200]
+UPGRADES_COL1_NAMES = ["PL_ATK_2X", "PL_SPD_2X", "PL_ATK_2X", "PL_SPD_2X", "PL_PT"]
+UPGRADES_COL1_SPRITES = ["sprites/gui/upgrade_double_damage.png","sprites/gui/upgrade_double_speed.png","sprites/gui/upgrade_double_damage.png", "sprites/gui/upgrade_double_speed.png", "sprites/gui/upgrade_pierce_through.png"]
+UPGRADES_COL1_PRICES = [200, 200, 200, 200, 200]
 UPGRADES_COL2_NAMES = ["SUPPORT","SUPPORT_ATK_2X", "SUPPORT_SPD_2X", "SUPPORT_RNG_2X"]
 UPGRADES_COL2_SPRITES = ["sprites/gui/upgrade_support.png","sprites/gui/upgrade_double_damage.png","sprites/gui/upgrade_double_speed.png","sprites/gui/upgrade_double_range.png"]
 UPGRADES_COL2_PRICES = [200, 200, 200, 200]
 UPGRADES_COL3_NAMES = ["SHIELD","SHIELD","SHIELD"]
 UPGRADES_COL3_SPRITES = ["sprites/gui/upgrade_shield.png","sprites/gui/upgrade_shield.png","sprites/gui/upgrade_shield.png"]
 UPGRADES_COL3_PRICES = [200,400,800]
+
+UPGRADE_TEXT_OFFSET_X = 0
+UPGRADE_TEXT_OFFSET_Y = 40
+UPGRADE_TEXT_SIZE = 15
