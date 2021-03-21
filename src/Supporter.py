@@ -4,7 +4,7 @@ import random
 import math
 
 class Supporter():
-    def __init__(self, max_health, damage, boost_speed, type, cashprize):
+    def __init__(self, max_health, damage, boost_speed, type, speed, cashprize):
         # sprite inititialisation
         self.sprites =(
         arcade.Sprite("sprites/npc/all_"+type.lower()+"_mv.png", scale = CONST.SPRITE_SCALING_PLAYER,image_x = 0,image_y = 0,image_width = 66,image_height = 66),
@@ -14,6 +14,8 @@ class Supporter():
         arcade.Sprite("sprites/npc/all_"+type.lower()+"_mv.png", scale = CONST.SPRITE_SCALING_PLAYER,image_x = 254,image_y = 0,image_width = 66,image_height = 66)
         )
         self.sprite = self.sprites[0]
+
+        self.speed = speed
 
         # position at begining
         side = random.randint(0, 3)
@@ -39,8 +41,8 @@ class Supporter():
 
         angle = math.atan2(y_diff, x_diff)
 
-        self.sprite.change_x = math.cos(angle) * CONST.SUPPORTER_INIT_VEL
-        self.sprite.change_y = math.sin(angle) * CONST.SUPPORTER_INIT_VEL
+        self.sprite.change_x = math.cos(angle) * self.speed
+        self.sprite.change_y = math.sin(angle) * self.speed
 
         self.max_health = max_health
         self.hit_points = max_health
