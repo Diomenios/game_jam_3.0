@@ -46,6 +46,7 @@ class Manager(arcade.Window):
         self.off = 0
         self.retry = 0
         self.weapon_count = 0
+        self.boss = False
 
         # Interaction parameters
         self.dirkey_change = False
@@ -91,6 +92,7 @@ class Manager(arcade.Window):
 
 
     def end_game(self):
+        self.music.stop(self.current_player)
         arcade.close_window()
         self.off = 1
 
@@ -149,6 +151,9 @@ class Manager(arcade.Window):
                 else:
                     s = ProTrump(1)
                 self.supporters.append(s)
+            if self.gui.votes_count <= 450 and not self.boss:
+                self.supporters.append(Boss(1))
+                self.boss = True
 
 
             # Distribute events
@@ -187,13 +192,6 @@ class Manager(arcade.Window):
                     if bullet != None:
                         self.bullets.append(bullet)
 
-                self.player.update()
-                self.tweet.update()
-
-                for s in self.supporters:
-                    s.boost_speed = max(1,self.tweet.activated * CONST.TWEET_SPEED_BOOST)
-                self.boost_speed = max(1,self.tweet.activated * CONST.TWEET_SPEED_BOOST)
-
             for b in self.bullets:
                 b.update()
                 for s in self.supporters:
@@ -206,6 +204,9 @@ class Manager(arcade.Window):
                         break
             self.bullets = [b for b in self.bullets if b.hit_points > 0]
             self.supporters = [s for s in self.supporters if s.hit_points > 0]
+            
+            # Remove bullets
+            self.bullets = [b for b in self.bullets if b.sprite.right > 0 and b.sprite.left < (CONST.SCREEN_WIDTH - 1) and b.sprite.bottom > 0 and b.sprite.top < (CONST.SCREEN_HEIGHT - 1)]
 
             # Collisions player <-> supporters
             stunned = False
@@ -233,7 +234,6 @@ class Manager(arcade.Window):
                     b.hit_points = 0
             self.bullets = [b for b in self.bullets if b.hit_points > 0]
 
-            print(len(self.bullets))
 
             """ ENDING CONDITIONS """
             if self.capitol.hit_point <= 0:
