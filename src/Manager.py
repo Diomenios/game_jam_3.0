@@ -1,5 +1,5 @@
 import arcade
-import arcade.gui
+from arcade.gui import *
 
 import random
 import math
@@ -18,6 +18,8 @@ from Capitol import Capitol
 from Coequipier import Coequipier
 from Tweet import Tweet
 from Gui import Gui
+from Strike import Strike
+
 
 class Manager(arcade.Window):
     def __init__(self):
@@ -62,11 +64,15 @@ class Manager(arcade.Window):
         self.mouse_y = 0
 
         self.background = None
+        self.ui_manager = None
         self.music_list = []
         self.current_song_index = 0
         self.current_player = None
         self.music = None
 
+        self.strike_button = None
+        self.button_normal = arcade.load_texture("sprites/gui/strike2.png")
+        self.button_hovered_texture = arcade.load_texture("sprites/gui/strike_over2.png")
 
         super().__init__(CONST.SCREEN_WIDTH, CONST.SCREEN_HEIGHT, CONST.SCREEN_TITLE)
 
@@ -79,11 +85,23 @@ class Manager(arcade.Window):
         self.gui = Gui(0,CONST.MAX_VOTES)
         self.supporters = []
         self.bullets = []
+        self.ui_manager = UIManager()
 
         self.tweet = Tweet()
 
+        self.strike_button = Strike(
+            center_x = CONST.STRIKE_BUTTON_X,
+            center_y = CONST.STRIKE_BUTTON_Y,
+            normal_texture=self.button_normal,
+            hover_texture=self.button_hovered_texture,
+            text='',
+        )
+
+        self.ui_manager.add_ui_element(self.strike_button)
+
         arcade.set_background_color(arcade.color.AMAZON)
-        self.background = arcade.load_texture("sprites/bg/bg.jpg")
+        self.background = arcade.load_texture("tileset/background.png")
+
 
         self.music_list = ["audios/background_music.mp3"]
         self.current_song_index = 0
@@ -112,8 +130,6 @@ class Manager(arcade.Window):
             self.current_song_index = 0
 
     def play_song(self):
-        #if self.music:
-        #    self.music.stop(self.current_player)
         self.current_player = self.music.play(CONST.MUSIC_VOLUME)
         time.sleep(0.03)
 
@@ -121,12 +137,14 @@ class Manager(arcade.Window):
     def on_draw(self):
         if not self.off:
             arcade.start_render()
+            arcade.draw_lrwh_rectangle_textured(0, 0,CONST.SCREEN_WIDTH, CONST.SCREEN_HEIGHT,self.background)
 
             self.capitol.draw()
             self.player.draw()
             self.gui.draw()
             self.tweet.draw()
 
+            self.strike_button.draw()
 
             #self.coequipier.draw()
             for b in self.bullets:
@@ -161,6 +179,7 @@ class Manager(arcade.Window):
 
             self.player.update()
             self.tweet.update()
+
 
             for s in self.supporters:
                 s.boost_speed = max(1,self.tweet.activated * CONST.TWEET_SPEED_BOOST)
