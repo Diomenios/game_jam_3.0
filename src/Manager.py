@@ -113,11 +113,14 @@ class Manager(arcade.Window):
                 s.draw()
 
             self.tweet.draw()
+            self.gui.draw()
+
 
 
     def on_update(self, delta_time):
         if not self.off:
             self.time = self.time + 1
+            self.gui.votes_count = int(CONST.MAX_VOTES - (self.time/60*2))
 
             # Create supporter
             if self.time % (self.spawn_interval * 60) == 0:
@@ -128,58 +131,9 @@ class Manager(arcade.Window):
                     s = ProTrump(1)
                 self.supporters.append(s)
 
-        self.tweet.draw()
-        self.gui.draw()
 
-    def on_update(self, delta_time):
-        self.time = self.time + 1
-        self.gui.votes_count = int(CONST.MAX_VOTES - (self.time/60*2))
-
-        # Create supporter
-        if self.time % (self.spawn_interval * 60) == 0:
-            r = random.random()
-            if r < CONST.REDNECK_PROBABILITY:
-                s = Redneck(1)
-            else:
-                s = ProTrump(1)
-            self.supporters.append(s)
-
-
-        # Distribute events
-        self.distribute_events()
-
-        self.player.update()
-        self.tweet.update()
-
-        for s in self.supporters:
-            s.boost_speed = max(1,self.tweet.activated * CONST.TWEET_SPEED_BOOST)
-        self.boost_speed = max(1,self.tweet.activated * CONST.TWEET_SPEED_BOOST)
-
-        for b in self.bullets:
-            b.update()
-        for s in self.supporters:
-            if s.type == "Redneck":
-                s.update(self.player.sprite.center_x, self.player.sprite.center_y)
-            else:
-                s.update()
-
-        # Fire a bullet
-        bullet = self.player.fire(self.mouse_x,self.mouse_y)
-        if bullet != None:
-            self.bullets.append(bullet)
-
-        if self.coequipier is not None:
-            nearest = None
-            dist = 1e9
-            for s in self.supporters:
-                d = math.sqrt((s.sprite.center_x-CONST.SCREEN_WIDTH/2)**2 + (s.sprite.center_y-CONST.SCREEN_HEIGHT/2)**2)
-                if d < dist and d < self.coequipier.range :
-                    dist = d
-                    nearest = s
-            if nearest is not None:
-                bullet = self.coequipier.fire(nearest.sprite.center_x,nearest.sprite.center_y)
-                if bullet != None:
-                    self.bullets.append(bullet)
+            # Distribute events
+            self.distribute_events()
 
             self.player.update()
             self.tweet.update()
@@ -191,52 +145,85 @@ class Manager(arcade.Window):
             for b in self.bullets:
                 b.update()
             for s in self.supporters:
-                if arcade.check_for_collision(b.sprite, s.sprite) and b.last_touch != s:
-                    s.hit_points -= b.damage
-                    if s.hit_points <= 0:
-                        self.gui.dollars_count += s.cashprize
-                    b.last_touch = s
-                    b.hit_points -= 1
-                    break
-        self.bullets = [b for b in self.bullets if b.hit_points > 0]
-        self.supporters = [s for s in self.supporters if s.hit_points > 0]
-
-        # Collisions player <-> supporters
-        stunned = False
-        for s in self.supporters:
-            if arcade.check_for_collision(self.player.sprite, s.sprite):
                 if s.type == "Redneck":
-                    s.hit_points -= CONST.REDNECK_HP_DECREASE
-                    s.is_on_player = True
-                self.player.stun = True
-                stunned = True
-        if not stunned:
-            self.player.stun = False
-        self.supporters = [s for s in self.supporters if s.hit_points > 0]
+                    s.update(self.player.sprite.center_x, self.player.sprite.center_y)
+                else:
+                    s.update()
 
-        # Collisions capitol <-> supporters
-        for s in self.supporters:
-            if arcade.check_for_collision(self.capitol.sprite, s.sprite):
-                self.capitol.hit(s.damage)
-                s.hit_points = 0
-        self.supporters = [s for s in self.supporters if s.hit_points > 0]
+            # Fire a bullet
+            bullet = self.player.fire(self.mouse_x,self.mouse_y)
+            if bullet != None:
+                self.bullets.append(bullet)
 
-        # Collisions capitol <-> bullets
-        for b in self.bullets:
-            if arcade.check_for_collision(self.capitol.sprite, b.sprite) and b.sender != "Coequipier":
-                b.hit_points = 0
-        self.bullets = [b for b in self.bullets if b.hit_points > 0]
+            if self.coequipier is not None:
+                nearest = None
+                dist = 1e9
+                for s in self.supporters:
+                    d = math.sqrt((s.sprite.center_x-CONST.SCREEN_WIDTH/2)**2 + (s.sprite.center_y-CONST.SCREEN_HEIGHT/2)**2)
+                    if d < dist and d < self.coequipier.range :
+                        dist = d
+                        nearest = s
+                if nearest is not None:
+                    bullet = self.coequipier.fire(nearest.sprite.center_x,nearest.sprite.center_y)
+                    if bullet != None:
+                        self.bullets.append(bullet)
+
+                self.player.update()
+                self.tweet.update()
+
+                for s in self.supporters:
+                    s.boost_speed = max(1,self.tweet.activated * CONST.TWEET_SPEED_BOOST)
+                self.boost_speed = max(1,self.tweet.activated * CONST.TWEET_SPEED_BOOST)
+
+                for b in self.bullets:
+                    b.update()
+                for s in self.supporters:
+                    if arcade.check_for_collision(b.sprite, s.sprite) and b.last_touch != s:
+                        s.hit_points -= b.damage
+                        if s.hit_points <= 0:
+                            self.gui.dollars_count += s.cashprize
+                        b.last_touch = s
+                        b.hit_points -= 1
+                        break
+            self.bullets = [b for b in self.bullets if b.hit_points > 0]
+            self.supporters = [s for s in self.supporters if s.hit_points > 0]
+
+            # Collisions player <-> supporters
+            stunned = False
+            for s in self.supporters:
+                if arcade.check_for_collision(self.player.sprite, s.sprite):
+                    if s.type == "Redneck":
+                        s.hit_points -= CONST.REDNECK_HP_DECREASE
+                        s.is_on_player = True
+                    self.player.stun = True
+                    stunned = True
+            if not stunned:
+                self.player.stun = False
+            self.supporters = [s for s in self.supporters if s.hit_points > 0]
+
+            # Collisions capitol <-> supporters
+            for s in self.supporters:
+                if arcade.check_for_collision(self.capitol.sprite, s.sprite):
+                    self.capitol.hit(s.damage)
+                    s.hit_points = 0
+            self.supporters = [s for s in self.supporters if s.hit_points > 0]
+
+            # Collisions capitol <-> bullets
+            for b in self.bullets:
+                if arcade.check_for_collision(self.capitol.sprite, b.sprite) and b.sender != "Coequipier":
+                    b.hit_points = 0
+            self.bullets = [b for b in self.bullets if b.hit_points > 0]
 
 
-        """ ENDING CONDITIONS """
-        if self.capitol.hit_point <= 0:
-            self.win_state = 0
-            self.end_game()
+            """ ENDING CONDITIONS """
+            if self.capitol.hit_point <= 0:
+                self.win_state = 0
+                self.end_game()
 
-        """ WIN CONDITIONS """
-        if self.gui.votes_count <= 0:
-            self.win_state = 1
-            self.end_game()
+            """ WIN CONDITIONS """
+            if self.gui.votes_count <= 0:
+                self.win_state = 1
+                self.end_game()
 
     def upgrade(self, action):
         if action == "PL_ATK_2X":
