@@ -29,7 +29,7 @@ def main():
                 clip = VideoFileClip("video/win_cut.mp4")
                 clip.preview()
             else:
-                clip = VideoFileClip("video/win_cut.mp4")
+                clip = VideoFileClip("video/game_over_cut.mp4")
                 clip.preview()
 
             manager.setup_retry()
