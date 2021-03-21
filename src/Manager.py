@@ -1,5 +1,5 @@
 import arcade
-import arcade.gui
+from arcade.gui import *
 
 import random
 import math
@@ -17,7 +17,7 @@ from Capitol import Capitol
 from Coequipier import Coequipier
 from Tweet import Tweet
 from Gui import Gui
-
+from Strike import Strike
 
 
 class Manager(arcade.Window):
@@ -61,7 +61,11 @@ class Manager(arcade.Window):
         self.mouse_y = 0
 
         self.background = None
+        self.ui_manager = None
 
+        self.strike_button = None
+        self.button_normal = arcade.load_texture("sprites/gui/strike2.png")
+        self.button_hovered_texture = arcade.load_texture("sprites/gui/strike_over2.png")
 
         super().__init__(CONST.SCREEN_WIDTH, CONST.SCREEN_HEIGHT, CONST.SCREEN_TITLE)
 
@@ -74,11 +78,23 @@ class Manager(arcade.Window):
         self.gui = Gui(0,CONST.MAX_VOTES)
         self.supporters = []
         self.bullets = []
+        self.ui_manager = UIManager()
 
         self.tweet = Tweet()
 
+        self.strike_button = Strike(
+            center_x = CONST.STRIKE_BUTTON_X,
+            center_y = CONST.STRIKE_BUTTON_Y,
+            normal_texture=self.button_normal,
+            hover_texture=self.button_hovered_texture,
+            text='',
+        )
+    
+        self.ui_manager.add_ui_element(self.strike_button)
+
         arcade.set_background_color(arcade.color.AMAZON)
         self.background = arcade.load_texture("sprites/bg/bg.jpg")
+        
 
 
     def end_game(self):
@@ -94,7 +110,6 @@ class Manager(arcade.Window):
 
         pygame.quit()
         exit()
-
 
     def on_draw(self):
         if not self.off:
@@ -113,8 +128,7 @@ class Manager(arcade.Window):
 
             self.tweet.draw()
             self.gui.draw()
-
-
+            self.strike_button.draw()
 
     def on_update(self, delta_time):
         if not self.off:
