@@ -5,19 +5,17 @@ Developped with ❤️ by **C'était mieux avant**
 ## Installation
 
 1. Clone this Github repository
-2. TODO VENV ??
-3. PIP INSTALL ??
+2. Open a terminal in `game_jam_3.0` folder.
+3. Install virtualenv with pip for Python 3 : `pip install virtualenv` 
+4. Launch a virtualenv : `virtualenv -p python3 env`
+5. Activate virtualenv : `source env/bin/activate`
+6. Install requirements : `pip install -r requirement.txt`
 
 
 ## Utilisation
 
-1. Open a terminal in `game_jam_3.0` folder.
-2. Install virtualenv with pip for Python 3 : `pip install virtualenv` 
-3. Launch a virtualenv : `virtualenv -p python3 env`
-4. Activate virtualenv : `source env/bin/activate`
-5. Install requirements : `pip install -r requirements.txt`
-6. Move to `src`directory : `cd src/`
-7. Execute the following command : `python main.py`
+1. Move to `src`directory : `cd src/`
+2. Execute the following command : `python main.py`
 
 ## Code organisation
 
