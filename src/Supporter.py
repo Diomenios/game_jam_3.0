@@ -7,10 +7,10 @@ class Supporter():
     def __init__(self, max_health, damage, boost_speed, type, speed, cashprize):
         # sprite inititialisation
         self.sprites =(
-        arcade.Sprite("sprites/npc/all_"+type.lower()+"_mv.png", scale = CONST.SPRITE_SCALING_PLAYER,image_x = 0,image_y = 0,image_width = 66,image_height = 66),
-        arcade.Sprite("sprites/npc/all_"+type.lower()+"_mv.png", scale = CONST.SPRITE_SCALING_PLAYER,image_x = 66,image_y = 0,image_width = 66,image_height = 66),
-        arcade.Sprite("sprites/npc/all_"+type.lower()+"_mv.png", scale = CONST.SPRITE_SCALING_PLAYER,image_x = 122,image_y = 0,image_width = 66,image_height = 66),
-        arcade.Sprite("sprites/npc/all_"+type.lower()+"_mv.png", scale = CONST.SPRITE_SCALING_PLAYER,image_x = 188,image_y = 0,image_width = 66,image_height = 66),
+        arcade.Sprite("sprites/npc/all_"+type.lower()+"_mv.png", scale = CONST.SPRITE_SCALING_PLAYER,image_x = 0,image_y = 0,image_width = 61,image_height = 66),
+        arcade.Sprite("sprites/npc/all_"+type.lower()+"_mv.png", scale = CONST.SPRITE_SCALING_PLAYER,image_x = 65,image_y = 0,image_width = 61,image_height = 66),
+        arcade.Sprite("sprites/npc/all_"+type.lower()+"_mv.png", scale = CONST.SPRITE_SCALING_PLAYER,image_x = 126,image_y = 0,image_width = 62,image_height = 66),
+        arcade.Sprite("sprites/npc/all_"+type.lower()+"_mv.png", scale = CONST.SPRITE_SCALING_PLAYER,image_x = 189,image_y = 0,image_width = 61,image_height = 66),
         arcade.Sprite("sprites/npc/all_"+type.lower()+"_mv.png", scale = CONST.SPRITE_SCALING_PLAYER,image_x = 254,image_y = 0,image_width = 66,image_height = 66)
         )
         self.sprite = self.sprites[0]

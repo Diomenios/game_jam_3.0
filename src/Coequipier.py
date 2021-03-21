@@ -13,7 +13,7 @@ class Coequipier():
         self.sprite.center_x = CONST.SCREEN_WIDTH // 2
         self.sprite.center_y = CONST.SCREEN_HEIGHT // 2
 
-        self.sound = arcade.Sound("audios/gun-1.mp3")
+        self.sound = arcade.Sound("audios/gun-1-bis.mp3")
 
         # weapon
         self.weapon = Weapon()
