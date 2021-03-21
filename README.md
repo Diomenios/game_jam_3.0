@@ -1,15 +1,53 @@
-# Redneck Ramble 
+# Redneck Ramble
 
-By Team : **C'était mieux avant**
+Developped with ❤️ by **C'était mieux avant**
+
+## Installation
+
+1. Clone this Github repository
+2. TODO VENV ??
+3. PIP INSTALL ??
+
+
+## Utilisation
+
+1. Open a terminal in `src` folder.
+2. Execute the following command : `python3 main.py`
 
 ## Code organisation
 
- * **sprites :** Contains all the sprites for the different games entities.
- * **main.py :** Is needed in order to make the game runnable. It's the first class excecuted by Python Arcade. 
- * **CONST.py :** Contains all the constants needed to set-up the game.
- * **Manager.py :** Class dedicated to the gestion of all the game event. For each trigger event, pass the event value to the right other game class.
- * **Player.py :** Class dedicated to the gestion of the Player entity. Contains all the methods for the gestion of the player mechanic and modify his properties
- * **Supporter.py :** Class dedicated to the gestion of the Supporter (generic ennemies) entity. Contains all the methods and attributes common to all the ennemies of the game.
- * **Weapon.py :** Class dedicated to the gestion of the Weapon entity. Contaisn all the attributes and methods needed in order to define the shape, number and dammage of the Bullet entities poped on player attack.
+ * **audios/** : Audio files.
+ * **sprites/** : Contains multiple folders containing the image files.
+ * **tileset/** : Background files.
+ * **video/** : Video files.
+ * **Boss.py** : Class dedicated to the Boss enemy, inherited from Supporters.
+ * **Bullets.py** : Class representing a weapon's bullet.
+ * **Capitol.py** : Class dedicated to the Capitol.
+ * **Coequipier.py** : Class dedicated to the Coequipier (auto shoot from the Capitol).
+ * **CONST.py** : Class containing all the constants.
+ * **Gui.py** : Class dedicated to display the different buttons, texts and images over the game screen.
+ * **main.py** : Main file used to run the entire project.
+ * **Manager.py** : Class dedicated to the handling of the other classes.
+ * **Player.py** : Class dedicated to the Player entity of the game.
+ * **ProTrump.py** : Class dedicated to the ProTrump enemy, inherited from Supporters.
+ * **Redneck.py** : Class dedicated to the Redneck enemy, inherited from Supporters.
+ * **Strike.py** : Class associated to the button "*Do Not Click*".
+ * **Supporter.py** : Parent class for the 3 different types of suppporters.
+ * **Tweet.py** : Class dedicated to the pop-up event of Donald tweeting "*Stop the count!*".
+ * **Weapon.py** : Class representing the Player weapon.
 
- Authors :  ARYS Louis, ARYS Simon, FISET Alexandre, COUPLET Adrien.
+## Dependencies
+
+ * Game Engines
+    - [**Arcade**](https://arcade.academy/)
+    - [**Pygame**](https://www.pygame.org/news)
+ * Sprites from [**Superpowers Asset Packs**](https://github.com/sparklinlabs/superpowers-asset-packs)
+ * Librairies
+    - [**moviepy**](https://github.com/Zulko/moviepy)
+
+## Authors
+
+ * ARYS Louis
+ * ARYS Simon
+ * COUPLET Adrien
+ * FISET Alexandre
