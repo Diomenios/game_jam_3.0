@@ -117,7 +117,7 @@ class Manager(arcade.Window):
 
         self.capitol.draw()
         self.player.draw()
-        self.gui.draw()
+        self.gui.draw(100, 200)
 
         #self.coequipier.draw()
         for b in self.bullets:
