@@ -67,6 +67,7 @@ class Gui():
         self.col1_upgrade_sprite.center_y = 35
         self.col1_upgrade_sprite.color = (150,150,150) if self.dollars_count < self.col1_upgrade_price else (220,255,220)
         self.col1_upgrade_sprite.draw()
+        self.draw_update_count(self.col1_upgrade_price, self.col1_upgrade_sprite.center_x, self.col1_upgrade_sprite.center_y)
     
     if self.col2_upgrade_state < len(CONST.UPGRADES_COL2_NAMES):
         self.col2_upgrade_name = CONST.UPGRADES_COL2_NAMES[self.col2_upgrade_state]
@@ -76,7 +77,8 @@ class Gui():
         self.col2_upgrade_sprite.center_y = 35
         self.col2_upgrade_sprite.color = (150,150,150) if self.dollars_count < self.col2_upgrade_price else (220,255,220)
         self.col2_upgrade_sprite.draw()
-    
+        self.draw_update_count(self.col2_upgrade_price, self.col2_upgrade_sprite.center_x, self.col2_upgrade_sprite.center_y)
+
     if self.col3_upgrade_state < len(CONST.UPGRADES_COL3_NAMES):
         self.col3_upgrade_name = CONST.UPGRADES_COL3_NAMES[self.col3_upgrade_state]
         self.col3_upgrade_price = CONST.UPGRADES_COL3_PRICES[self.col3_upgrade_state]
@@ -85,13 +87,14 @@ class Gui():
         self.col3_upgrade_sprite.center_y = 35
         self.col3_upgrade_sprite.color = (150,150,150) if self.dollars_count < self.col3_upgrade_price else (220,255,220)
         self.col3_upgrade_sprite.draw()
+        self.draw_update_count(self.col3_upgrade_price, self.col3_upgrade_sprite.center_x, self.col3_upgrade_sprite.center_y)
 
     self.draw_count_bar()
 
     self.draw_dollars_text()
     self.draw_votes_text()
   
-  def draw_dollars_text(self) :
+  def draw_dollars_text(self):
 
     dollars_string = f"{self.dollars_count}$"
     arcade.draw_text(dollars_string,
@@ -102,7 +105,7 @@ class Gui():
                         anchor_y="center",
                         color = arcade.color.BLACK)
 
-  def draw_votes_text (self) :
+  def draw_votes_text (self):
 
     votes_string = f"{self.votes_count}"
     arcade.draw_text(votes_string,
@@ -113,7 +116,7 @@ class Gui():
                         anchor_y="center",
                         color = arcade.color.BLACK)
 
-  def draw_count_bar (self) :
+  def draw_count_bar (self):
     """ Draw the votes bar """
     arcade.draw_rectangle_filled(center_x = self.votes_sprite.center_x + CONST.VOTES_TEXT_OFFSET_X + CONST.VOTES_OFFSET_X,
                                   center_y = self.votes_sprite.center_y + CONST.VOTES_OFFSET_Y,
@@ -129,4 +132,16 @@ class Gui():
                                   width = health_width,
                                   height = CONST.VOTES_HEIGHT,
                                   color = arcade.color.OU_CRIMSON_RED)
+
+  def draw_update_count(self, price, center_x, center_y):
+    """ Draw the votes bar """
+
+    votes_string = f"{price}$"
+    arcade.draw_text(votes_string,
+                        start_x = center_x + CONST.UPGRADE_TEXT_OFFSET_X,
+                        start_y = center_y + CONST.UPGRADE_TEXT_OFFSET_Y, 
+                        font_size = CONST.UPGRADE_TEXT_SIZE,
+                        anchor_x="center",
+                        anchor_y="center",
+                        color = arcade.color.BLACK)
 

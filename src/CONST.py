@@ -100,3 +100,7 @@ UPGRADES_COL2_PRICES = [200, 200, 200, 200]
 UPGRADES_COL3_NAMES = ["SHIELD","SHIELD","SHIELD"]
 UPGRADES_COL3_SPRITES = ["sprites/gui/upgrade_shield.png","sprites/gui/upgrade_shield.png","sprites/gui/upgrade_shield.png"]
 UPGRADES_COL3_PRICES = [200,400,800]
+
+UPGRADE_TEXT_OFFSET_X = 0
+UPGRADE_TEXT_OFFSET_Y = 40
+UPGRADE_TEXT_SIZE = 15
