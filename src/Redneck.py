@@ -4,7 +4,7 @@ from Supporter import Supporter
 
 class Redneck(Supporter):
     def __init__(self, boost_speed):
-        super().__init__(CONST.REDNECK_MAX_HEALTH, CONST.REDNECK_DAMAGE, boost_speed, "Redneck", CONST.REDNECK_CASHPRIZE)
+        super().__init__(CONST.REDNECK_MAX_HEALTH, CONST.REDNECK_DAMAGE, boost_speed, "Redneck", CONST.REDNECK_SPEED, CONST.REDNECK_CASHPRIZE)
         self.boost_speed = boost_speed
         self.is_on_player = False
 
@@ -15,8 +15,8 @@ class Redneck(Supporter):
 
         angle = math.atan2(y_diff, x_diff)
 
-        self.sprite.change_x = math.cos(angle) * CONST.SUPPORTER_INIT_VEL * self.boost_speed
-        self.sprite.change_y = math.sin(angle) * CONST.SUPPORTER_INIT_VEL * self.boost_speed
+        self.sprite.change_x = math.cos(angle) * self.speed * self.boost_speed
+        self.sprite.change_y = math.sin(angle) * self.speed * self.boost_speed
 
 
         x = self.sprite.center_x
