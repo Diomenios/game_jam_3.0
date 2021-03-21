@@ -1,0 +1,19 @@
+1
+00:00:00,00 --> 00:00:05,00
+The events in Washington have take a violent and tumultuous turn in the past few hours
+
+2
+00:00:05,00 --> 00:00:09,00
+as thousands of supporters of President Trump stormed the U.S. Capitol building, 
+
+3 
+00:00:09,00 --> 00:00:14,00
+venting their anger at the victory of Joe Biden in the presidential election. 
+
+3
+00:00:14,00 --> 00:00:22,00
+They forced the evacuation and lockdown of Congress itself, where lawmakers were all set to approve the election result. 
+
+4
+00:00:22,00 --> 00:00:30,00
+Shortly before the clashes, President Trump had adressed his supporters near the White House, telling them that he would never accept defeat.
