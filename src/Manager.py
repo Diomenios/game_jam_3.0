@@ -53,7 +53,7 @@ class Manager(arcade.Window):
         self.gui = Gui()
         self.supporters = []
         self.bullets = []
-        
+
         self.tweet = Tweet()
 
 
@@ -69,8 +69,8 @@ class Manager(arcade.Window):
             b.draw()
         for s in self.supporters:
             s.draw()
-            
-            
+
+
         self.tweet.draw()
 
 
@@ -93,11 +93,11 @@ class Manager(arcade.Window):
 
         self.player.update()
         self.tweet.update()
-        
+
         for s in self.supporters:
             s.boost_speed = max(1,self.tweet.activated * CONST.TWEET_SPEED_BOOST)
         self.boost_speed = max(1,self.tweet.activated * CONST.TWEET_SPEED_BOOST)
-            
+
         for b in self.bullets:
             b.update()
         for s in self.supporters:
