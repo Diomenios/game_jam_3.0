@@ -161,6 +161,7 @@ class Manager(arcade.Window):
 
             self.player.update()
             self.tweet.update()
+                
 
             for s in self.supporters:
                 s.boost_speed = max(1,self.tweet.activated * CONST.TWEET_SPEED_BOOST)
