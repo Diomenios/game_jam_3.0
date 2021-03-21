@@ -7,7 +7,6 @@ import CONST
 from moviepy.editor import *
 import pygame
 
-
 from Player import Player
 from Supporter import Supporter
 from Bullets import Bullets
