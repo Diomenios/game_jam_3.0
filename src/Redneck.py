@@ -39,7 +39,7 @@ class Redneck(Supporter):
         change_x = self.sprite.change_x
         change_y = self.sprite.change_y
 
-        if self.hit_points > 0:
+        if self.hit_points > 5:
             if self.is_on_player:
                 self.sprite = self.sprites[0]
             elif self._tempo_sprite == 0:
