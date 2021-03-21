@@ -172,14 +172,14 @@ class Manager(arcade.Window):
             self.gui.votes_count = int(CONST.MAX_VOTES - (self.time/60*2))
 
             # Create supporter
-            if self.time % (self.spawn_interval * 20) == 0:
+            if self.time % (self.spawn_interval * 30) == 0:
                 r = random.random()
                 if r < CONST.REDNECK_PROBABILITY:
                     s = Redneck(1)
                 else:
                     s = ProTrump(1)
                 self.supporters.append(s)
-            if self.gui.votes_count <= 60 and not self.boss:
+            if self.gui.votes_count <= 400 and not self.boss:
                 self.supporters.append(Boss(1))
                 self.boss = True
 
