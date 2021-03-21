@@ -115,8 +115,8 @@ class Manager(arcade.Window):
     def on_draw(self):
         arcade.start_render()
 
-        self.player.draw()
         self.capitol.draw()
+        self.player.draw()
         self.gui.draw(100, 200)
 
         #self.coequipier.draw()
@@ -211,9 +211,20 @@ class Manager(arcade.Window):
                 self.capitol.hit(s.damage)
                 s.hit_points = 0
         self.supporters = [s for s in self.supporters if s.hit_points > 0]
+        
+        # Collisions capitol <-> bullets
+        for b in self.bullets:
+            if arcade.check_for_collision(self.capitol.sprite, b.sprite):
+                b.hit_points = 0
+        self.bullets = [b for b in self.bullets if b.hit_points > 0]     
 
 
-
+        """ ENDING CONDITIONS """
+        if self.capitol.hit_point <= 0:
+            self.stop = 1
+            self.win_state = 0
+            self.end_game = 1
+            arcade.close_window()
 
 
     """ EVENTS """
