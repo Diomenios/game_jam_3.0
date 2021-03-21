@@ -6,6 +6,7 @@ import math
 import CONST
 from moviepy.editor import *
 import pygame
+import time
 
 from Player import Player
 from Supporter import Supporter
@@ -41,11 +42,13 @@ class Manager(arcade.Window):
         # Game parameters
         self.score = 0
         self.time = 0
-        self.spawn_interval = 1
+        self.spawn_interval = 1.5
         self.boost_speed = 1
         self.win_state = 0
         self.off = 0
         self.retry = 0
+        self.weapon_count = 0
+        self.boss = False
 
         # Interaction parameters
         self.dirkey_change = False
@@ -62,6 +65,10 @@ class Manager(arcade.Window):
 
         self.background = None
         self.ui_manager = None
+        self.music_list = []
+        self.current_song_index = 0
+        self.current_player = None
+        self.music = None
 
         self.strike_button = None
         self.button_normal = arcade.load_texture("sprites/gui/strike2.png")
@@ -96,8 +103,14 @@ class Manager(arcade.Window):
         self.background = arcade.load_texture("sprites/bg/bg.jpg")
         
 
+        self.music_list = ["audios/background_music.mp3"]
+        self.current_song_index = 0
+        self.music = arcade.Sound(self.music_list[self.current_song_index], streaming=True)
+        self.play_song()
+
 
     def end_game(self):
+        self.music.stop(self.current_player)
         arcade.close_window()
         self.off = 1
 
@@ -111,6 +124,18 @@ class Manager(arcade.Window):
         pygame.quit()
         exit()
 
+    def advance_song(self):
+        self.current_song_index += 1
+        if self.current_song_index >= len(self.music_list):
+            self.current_song_index = 0
+
+    def play_song(self):
+        #if self.music:
+        #    self.music.stop(self.current_player)
+        self.current_player = self.music.play(CONST.MUSIC_VOLUME)
+        time.sleep(0.03)
+
+
     def on_draw(self):
         if not self.off:
             arcade.start_render()
@@ -118,7 +143,9 @@ class Manager(arcade.Window):
             self.capitol.draw()
             self.player.draw()
             self.gui.draw()
+            self.tweet.draw()
 
+            self.strike_button.draw()
 
             #self.coequipier.draw()
             for b in self.bullets:
@@ -126,9 +153,9 @@ class Manager(arcade.Window):
             for s in self.supporters:
                 s.draw()
 
-            self.tweet.draw()
-            self.gui.draw()
-            self.strike_button.draw()
+
+
+
 
     def on_update(self, delta_time):
         if not self.off:
@@ -143,6 +170,9 @@ class Manager(arcade.Window):
                 else:
                     s = ProTrump(1)
                 self.supporters.append(s)
+            if self.gui.votes_count <= 450 and not self.boss:
+                self.supporters.append(Boss(1))
+                self.boss = True
 
 
             # Distribute events
@@ -150,6 +180,7 @@ class Manager(arcade.Window):
 
             self.player.update()
             self.tweet.update()
+                
 
             for s in self.supporters:
                 s.boost_speed = max(1,self.tweet.activated * CONST.TWEET_SPEED_BOOST)
@@ -181,13 +212,6 @@ class Manager(arcade.Window):
                     if bullet != None:
                         self.bullets.append(bullet)
 
-                self.player.update()
-                self.tweet.update()
-
-                for s in self.supporters:
-                    s.boost_speed = max(1,self.tweet.activated * CONST.TWEET_SPEED_BOOST)
-                self.boost_speed = max(1,self.tweet.activated * CONST.TWEET_SPEED_BOOST)
-
             for b in self.bullets:
                 b.update()
                 for s in self.supporters:
@@ -200,6 +224,9 @@ class Manager(arcade.Window):
                         break
             self.bullets = [b for b in self.bullets if b.hit_points > 0]
             self.supporters = [s for s in self.supporters if s.hit_points > 0]
+
+            # Remove bullets
+            self.bullets = [b for b in self.bullets if b.sprite.right > 0 and b.sprite.left < (CONST.SCREEN_WIDTH - 1) and b.sprite.bottom > 0 and b.sprite.top < (CONST.SCREEN_HEIGHT - 1)]
 
             # Collisions player <-> supporters
             stunned = False
@@ -238,11 +265,17 @@ class Manager(arcade.Window):
                 self.win_state = 1
                 self.end_game()
 
+            if self.music.get_stream_position(self.current_player) == 0.0:
+                self.advance_song()
+                self.play_song()
+
     def upgrade(self, action):
         if action == "PL_ATK_2X":
             self.player.weapon.ammo_dmg *= 2
         elif action == "PL_SPD_2X":
+            self.weapon_count +=1
             self.player.weapon.rate /= 2
+            self.gui.weapon_sprite = arcade.Sprite(CONST.WEAPON_SPRITE[self.weapon_count], CONST.SPRITE_SCALING_WEAPON)
         elif action == "PL_PT":
             self.player.weapon.ammo_hit_point += 1
         elif action == "SUPPORT":
