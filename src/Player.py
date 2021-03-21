@@ -1,6 +1,5 @@
 import arcade
 import math
-from Weapon import Weapon
 import CONST
 from Weapon import Weapon
 from Bullets import Bullets
