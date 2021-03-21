@@ -174,8 +174,8 @@ class Manager(arcade.Window):
                     s.boost_speed = max(1,self.tweet.activated * CONST.TWEET_SPEED_BOOST)
                 self.boost_speed = max(1,self.tweet.activated * CONST.TWEET_SPEED_BOOST)
 
-                for b in self.bullets:
-                    b.update()
+            for b in self.bullets:
+                b.update()
                 for s in self.supporters:
                     if arcade.check_for_collision(b.sprite, s.sprite) and b.last_touch != s:
                         s.hit_points -= b.damage
