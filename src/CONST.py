@@ -33,16 +33,16 @@ PROTRUMP_MAX_HEALTH = 5
 REDNECK_MAX_HEALTH = 10
 REDNECK_PROBABILITY = 0.1
 BOSS_MAX_HEALTH = 300
-PROTRUMP_DAMAGE = 5
-REDNECK_DAMAGE = 10
+PROTRUMP_DAMAGE = 10
+REDNECK_DAMAGE = 15
 BOSS_DAMAGE = 300
 PROTRUMP_CASHPRIZE = 20
-REDNECK_CASHPRIZE = 40
+REDNECK_CASHPRIZE = 50
 BOSS_CASHPRIZE = 400
-PROTRUMP_SPEED = 1
-REDNECK_SPEED = 2.5
+PROTRUMP_SPEED = 2
+REDNECK_SPEED = 3
 BOSS_SPEED = 0.2
-REDNECK_HP_DECREASE = 5/60
+REDNECK_HP_DECREASE = 10/60
 
 # Health Bar Drawing Text
 HEALTH_NUMBER_OFFSET_X = -25
@@ -102,10 +102,10 @@ SPRITE_SCALING_ITEMS_BAR = 1
 # Upgrades
 UPGRADES_COL1_NAMES = ["PL_ATK_2X", "PL_SPD_2X", "PL_ATK_2X", "PL_SPD_2X", "PL_PT"]
 UPGRADES_COL1_SPRITES = ["sprites/gui/upgrade_double_damage.png","sprites/gui/upgrade_double_speed.png","sprites/gui/upgrade_double_damage.png", "sprites/gui/upgrade_double_speed.png", "sprites/gui/upgrade_pierce_through.png"]
-UPGRADES_COL1_PRICES = [200, 200, 200, 200, 200]
+UPGRADES_COL1_PRICES = [100, 100, 200, 200, 400]
 UPGRADES_COL2_NAMES = ["SUPPORT","SUPPORT_ATK_2X", "SUPPORT_SPD_2X", "SUPPORT_RNG_2X"]
 UPGRADES_COL2_SPRITES = ["sprites/gui/upgrade_support.png","sprites/gui/upgrade_double_damage.png","sprites/gui/upgrade_double_speed.png","sprites/gui/upgrade_double_range.png"]
-UPGRADES_COL2_PRICES = [200, 200, 200, 200]
+UPGRADES_COL2_PRICES = [300, 300, 300, 300]
 UPGRADES_COL3_NAMES = ["SHIELD","SHIELD","SHIELD"]
 UPGRADES_COL3_SPRITES = ["sprites/gui/upgrade_shield.png","sprites/gui/upgrade_shield.png","sprites/gui/upgrade_shield.png"]
 UPGRADES_COL3_PRICES = [200,400,800]

@@ -40,7 +40,7 @@ class Manager(arcade.Window):
         # Game parameters
         self.score = 0
         self.time = 0
-        self.spawn_interval = 1
+        self.spawn_interval = 3
         self.boost_speed = 1
         self.win_state = 0
         self.off = 0
@@ -84,7 +84,7 @@ class Manager(arcade.Window):
 
         arcade.set_background_color(arcade.color.AMAZON)
         self.background = arcade.load_texture("sprites/bg/bg.jpg")
-        
+
         self.music_list = ["audios/background_music.mp3"]
         self.current_song_index = 0
         self.music = arcade.Sound(self.music_list[self.current_song_index], streaming=True)
@@ -105,12 +105,12 @@ class Manager(arcade.Window):
 
         pygame.quit()
         exit()
-        
+
     def advance_song(self):
         self.current_song_index += 1
         if self.current_song_index >= len(self.music_list):
             self.current_song_index = 0
-    
+
     def play_song(self):
         #if self.music:
         #    self.music.stop(self.current_player)
@@ -151,7 +151,7 @@ class Manager(arcade.Window):
                 else:
                     s = ProTrump(1)
                 self.supporters.append(s)
-            if self.gui.votes_count <= 450 and not self.boss:
+            if self.gui.votes_count <= 60 and not self.boss:
                 self.supporters.append(Boss(1))
                 self.boss = True
 
@@ -204,7 +204,7 @@ class Manager(arcade.Window):
                         break
             self.bullets = [b for b in self.bullets if b.hit_points > 0]
             self.supporters = [s for s in self.supporters if s.hit_points > 0]
-            
+
             # Remove bullets
             self.bullets = [b for b in self.bullets if b.sprite.right > 0 and b.sprite.left < (CONST.SCREEN_WIDTH - 1) and b.sprite.bottom > 0 and b.sprite.top < (CONST.SCREEN_HEIGHT - 1)]
 
@@ -244,12 +244,15 @@ class Manager(arcade.Window):
             if self.gui.votes_count <= 0:
                 self.win_state = 1
                 self.end_game()
-                
+
             if self.music.get_stream_position(self.current_player) == 0.0:
-                self.advance_song()
+            #    self.advance_song()
                 self.play_song()
 
     def upgrade(self, action):
+        if self.spawn_interval > 2:
+            self.spawn_interval += -1
+
         if action == "PL_ATK_2X":
             self.player.weapon.ammo_dmg *= 2
         elif action == "PL_SPD_2X":

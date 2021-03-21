@@ -3,6 +3,7 @@ import math
 import CONST
 from Weapon import Weapon
 from Bullets import Bullets
+import time
 
 class Player():
     def __init__(self):
@@ -115,6 +116,7 @@ class Player():
                 # Create a bullet
                 bullet = Bullets(self.sprite.center_x,self.sprite.center_y,dest_x,dest_y,self.weapon.ammo_dmg,self.weapon.ammo_vel,self.weapon.ammo_hit_point,"Player")
                 self.sound.play()
+                time.sleep(0.03)
             self.count += 1
         else:
             self.count = 0
