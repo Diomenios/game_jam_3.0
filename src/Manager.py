@@ -175,7 +175,7 @@ class Manager(arcade.Window):
             self.gui.votes_count = int(CONST.MAX_VOTES - (self.time/60*2))
 
             # Create supporter
-            if self.time % (self.spawn_interval * 20) == 0:
+            if self.time % (self.spawn_interval * 30) == 0:
                 r = random.random()
                 if r < CONST.REDNECK_PROBABILITY:
                     s = Redneck(1)
