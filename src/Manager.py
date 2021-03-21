@@ -22,6 +22,10 @@ from Strike import Strike
 
 
 class Manager(arcade.Window):
+    
+    music = arcade.Sound("audios/background_music.mp3")
+
+
     def __init__(self):
         # show history
         pygame.display.set_caption('Redneck Rumble')
@@ -61,14 +65,13 @@ class Manager(arcade.Window):
         self.leftclick_x = 0
         self.leftclick_y = 0
         self.mouse_x = 0
-        self.mouse_y = 0
+        self.mouse_y = 0  
 
         self.background = None
         self.ui_manager = None
         self.music_list = []
         self.current_song_index = 0
         self.current_player = None
-        self.music = None
 
         self.strike_button = None
         self.button_normal = arcade.load_texture("sprites/gui/strike2.png")
@@ -94,7 +97,7 @@ class Manager(arcade.Window):
             center_y = CONST.STRIKE_BUTTON_Y,
             normal_texture=self.button_normal,
             hover_texture=self.button_hovered_texture,
-            text='',
+            text=''
         )
 
         self.ui_manager.add_ui_element(self.strike_button)
@@ -110,7 +113,12 @@ class Manager(arcade.Window):
 
 
     def end_game(self):
-        self.music.stop(self.current_player)
+        if self.strike_button.already_clicked == "True" :
+            Manager.music.stop(self.current_player)
+
+        else : 
+            self.strike_button.sound.stop(self.strike_button.manager)
+
         arcade.close_window()
         self.off = 1
 
@@ -152,9 +160,16 @@ class Manager(arcade.Window):
             for s in self.supporters:
                 s.draw()
 
+    def check_sound (self):
+        
+        if self.strike_button.already_clicked == "True" :
+            self.strike_button.already_clicked
+            Manager.music.stop(self.current_player)
+            self.strike_button.already_clicked = "True_all"
 
-
-
+        if self.strike_button.already_clicked == "False":
+            self.current_player = Manager.music.play(CONST.MUSIC_VOLUME)
+            self.strike_button.already_clicked = "None"
 
     def on_update(self, delta_time):
         if not self.off:
@@ -253,6 +268,7 @@ class Manager(arcade.Window):
                     b.hit_points = 0
             self.bullets = [b for b in self.bullets if b.hit_points > 0]
 
+            self.check_sound()
 
             """ ENDING CONDITIONS """
             if self.capitol.hit_point <= 0:
