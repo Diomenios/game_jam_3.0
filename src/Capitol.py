@@ -88,10 +88,10 @@ class Capitol():
 
     def draw_shield_number(self):
 
-        """ Draw how many hit points we have """
+        """ Draw how many shield points we have """
 
-        health_string = f"shield({self.shield})"
-        arcade.draw_text(health_string,
+        shield_string = f"shield({self.shield})"
+        arcade.draw_text(shield_string,
                             start_x = self.sprite.center_x + CONST.HEALTH_NUMBER_OFFSET_X + CONST.SHIELD_BAR_OFFSET_X,
                             start_y = self.sprite.center_y + CONST.HEALTH_NUMBER_OFFSET_Y,
                             font_size = CONST.FONT_SIZE,
