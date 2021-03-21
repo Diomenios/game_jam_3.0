@@ -94,7 +94,7 @@ class Manager(arcade.Window):
         bullet = self.player.fire(self.mouse_x,self.mouse_y)
         if bullet != None:
             self.bullets.append(bullet)
-        
+
         if self.coequipier is not None:
             nearest = None
             dist = 1e9
@@ -107,8 +107,8 @@ class Manager(arcade.Window):
                 bullet = self.coequipier.fire(nearest.sprite.center_x,nearest.sprite.center_y)
                 if bullet != None:
                     self.bullets.append(bullet)
-            
-         
+
+
 
         # Remove bullets & supporters
         self.bullets = [b for b in self.bullets if b.sprite.right > 0 and b.sprite.left < (CONST.SCREEN_WIDTH - 1) and b.sprite.bottom > 0 and b.sprite.top < (CONST.SCREEN_HEIGHT - 1)]
@@ -130,6 +130,7 @@ class Manager(arcade.Window):
             if arcade.check_for_collision(self.player.sprite, s.sprite):
                 if s.type == "Redneck":
                     s.hit_points -= CONST.REDNECK_HP_DECREASE
+                    s.is_on_player = True
                 self.player.stun = True
                 stunned = True
         if not stunned:
