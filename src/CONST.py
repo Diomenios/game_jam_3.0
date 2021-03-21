@@ -29,8 +29,8 @@ SPRITE_SCALING_SUPPORTER = .25
 SUPPORTER_HEALTHBAR_WIDTH = 25
 SUPPORTER_HEALTHBAR_HEIGHT = 3
 SUPPORTER_HEALTHBAR_OFFSET_Y = 12
-PROTRUMP_MAX_HEALTH = 10
-REDNECK_MAX_HEALTH = 15
+PROTRUMP_MAX_HEALTH = 15
+REDNECK_MAX_HEALTH = 20
 REDNECK_PROBABILITY = 0.1
 BOSS_MAX_HEALTH = 300
 PROTRUMP_DAMAGE = 10
@@ -102,13 +102,13 @@ SPRITE_SCALING_ITEMS_BAR = 1
 # Upgrades
 UPGRADES_COL1_NAMES = ["PL_ATK_2X", "PL_SPD_2X", "PL_ATK_2X", "PL_SPD_2X", "PL_PT"]
 UPGRADES_COL1_SPRITES = ["sprites/gui/upgrade_double_damage.png","sprites/gui/upgrade_double_speed.png","sprites/gui/upgrade_double_damage.png", "sprites/gui/upgrade_double_speed.png", "sprites/gui/upgrade_pierce_through.png"]
-UPGRADES_COL1_PRICES = [200, 200, 400, 400, 800]
+UPGRADES_COL1_PRICES = [300, 300, 600, 600, 1200]
 UPGRADES_COL2_NAMES = ["SUPPORT","SUPPORT_ATK_2X", "SUPPORT_SPD_2X", "SUPPORT_RNG_2X"]
 UPGRADES_COL2_SPRITES = ["sprites/gui/upgrade_support.png","sprites/gui/upgrade_double_damage.png","sprites/gui/upgrade_double_speed.png","sprites/gui/upgrade_double_range.png"]
-UPGRADES_COL2_PRICES = [600, 600, 1200, 1200]
+UPGRADES_COL2_PRICES = [900, 900, 1800, 1800]
 UPGRADES_COL3_NAMES = ["SHIELD","SHIELD","SHIELD"]
 UPGRADES_COL3_SPRITES = ["sprites/gui/upgrade_shield.png","sprites/gui/upgrade_shield.png","sprites/gui/upgrade_shield.png"]
-UPGRADES_COL3_PRICES = [400,800,1600]
+UPGRADES_COL3_PRICES = [600,1200,2400]
 
 UPGRADE_TEXT_OFFSET_X = 0
 UPGRADE_TEXT_OFFSET_Y = 40

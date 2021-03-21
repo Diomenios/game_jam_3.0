@@ -222,7 +222,7 @@ class Manager(arcade.Window):
                         b.hit_points -= 1
                         break
             self.bullets = [b for b in self.bullets if b.hit_points > 0]
-            self.supporters = [s for s in self.supporters if s.hit_points > 0]
+            self.supporters = [s for s in self.supporters if (s.hit_points > 0 and not s.type == "Boss")]
 
             # Remove bullets
             self.bullets = [b for b in self.bullets if b.sprite.right > 0 and b.sprite.left < (CONST.SCREEN_WIDTH - 1) and b.sprite.bottom > 0 and b.sprite.top < (CONST.SCREEN_HEIGHT - 1)]
