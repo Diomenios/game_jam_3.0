@@ -1,6 +1,8 @@
 import arcade
 import arcade.gui
 
+import random
+import math
 import CONST
 
 from Player import Player
@@ -11,6 +13,8 @@ from Redneck import Redneck
 from Boss import Boss
 from Capitol import Capitol
 from Coequipier import Coequipier
+from Tweet import Tweet
+from Gui import Gui
 
 # link for the button
 manager = None
@@ -31,6 +35,7 @@ class Manager(arcade.Window):
         self.capitol = None
         self.coequipier = None
         manager = self
+        self.gui = None
 
         # Game parameters
         self.score = 0
@@ -62,6 +67,12 @@ class Manager(arcade.Window):
 
         self.player = Player()
         self.capitol = Capitol()
+        self.coequipier = Coequipier()
+        self.gui = Gui()
+        self.supporters = []
+        self.bullets = []
+
+        self.tweet = Tweet()
 
         arcade.set_background_color(arcade.color.AMAZON)
 
@@ -106,6 +117,7 @@ class Manager(arcade.Window):
 
         self.player.draw()
         self.capitol.draw()
+        self.gui.draw()
 
         #self.coequipier.draw()
         for b in self.bullets:
@@ -113,13 +125,19 @@ class Manager(arcade.Window):
         for s in self.supporters:
             s.draw()
 
+
+        self.tweet.draw()
+
     def on_update(self, delta_time):
         self.time = self.time + 1
 
         # Create supporter
         if self.time % (self.spawn_interval * 60) == 0:
-            # adding a ProTrump with boost_speed set to 1
-            s = ProTrump(1)
+            r = random.random()
+            if r < CONST.REDNECK_PROBABILITY:
+                s = Redneck(1)
+            else:
+                s = ProTrump(1)
             self.supporters.append(s)
 
 
@@ -127,15 +145,39 @@ class Manager(arcade.Window):
         self.distribute_events()
 
         self.player.update()
+        self.tweet.update()
+
+        for s in self.supporters:
+            s.boost_speed = max(1,self.tweet.activated * CONST.TWEET_SPEED_BOOST)
+        self.boost_speed = max(1,self.tweet.activated * CONST.TWEET_SPEED_BOOST)
+
         for b in self.bullets:
             b.update()
         for s in self.supporters:
-            s.update()
+            if s.type == "Redneck":
+                s.update(self.player.sprite.center_x, self.player.sprite.center_y)
+            else:
+                s.update()
 
         # Fire a bullet
         bullet = self.player.fire(self.mouse_x,self.mouse_y)
         if bullet != None:
             self.bullets.append(bullet)
+
+        if self.coequipier is not None:
+            nearest = None
+            dist = 1e9
+            for s in self.supporters:
+                d = math.sqrt((s.sprite.center_x-CONST.SCREEN_WIDTH/2)**2 + (s.sprite.center_y-CONST.SCREEN_HEIGHT/2)**2)
+                if d < dist and d < self.coequipier.range :
+                    dist = d
+                    nearest = s
+            if nearest is not None:
+                bullet = self.coequipier.fire(nearest.sprite.center_x,nearest.sprite.center_y)
+                if bullet != None:
+                    self.bullets.append(bullet)
+
+
 
         # Remove bullets & supporters
         self.bullets = [b for b in self.bullets if b.sprite.right > 0 and b.sprite.left < (CONST.SCREEN_WIDTH - 1) and b.sprite.bottom > 0 and b.sprite.top < (CONST.SCREEN_HEIGHT - 1)]
@@ -147,7 +189,7 @@ class Manager(arcade.Window):
                     s.hit_points -= b.damage
                     b.last_touch = s
                     b.hit_points -= 1
-                    break;
+                    break
         self.bullets = [b for b in self.bullets if b.hit_points > 0]
         self.supporters = [s for s in self.supporters if s.hit_points > 0]
 
@@ -155,8 +197,9 @@ class Manager(arcade.Window):
         stunned = False
         for s in self.supporters:
             if arcade.check_for_collision(self.player.sprite, s.sprite):
-                if s.type == 1:
+                if s.type == "Redneck":
                     s.hit_points -= CONST.REDNECK_HP_DECREASE
+                    s.is_on_player = True
                 self.player.stun = True
                 stunned = True
         if not stunned:

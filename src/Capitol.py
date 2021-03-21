@@ -7,7 +7,7 @@ class Capitol():
         self.sprite = arcade.Sprite("sprites/land/capitol-base.png", CONST.SPRITE_SCALING_CAPITOL)
 
         self.max_shield = CONST.CAPITOL_SHIELD    
-        self.shield = CONST.CAPITOL_SHIELD
+        self.shield = 0
 
         self.sprite.center_y = CONST.SCREEN_HEIGHT/2
         self.sprite.center_x = CONST.SCREEN_WIDTH/2
@@ -17,20 +17,31 @@ class Capitol():
 
     def hit(self, damage):
         if self.shield != 0 :
-            if self.shield < damage :
+            if self.shield <= damage :
                 
-                self.shield = 0
                 damage -= self.shield
+                self.shield = 0
+                self.switch_on_shield_view()
+                self.hit_point -= damage
             else :
-
                 self.shield -= damage
+        else :         
+            self.hit_point -= damage
 
-        self.hit_point -= damage
+    def add_shield_points(self, shield_points):
+        
+        new_shield_points = self.shield() + shield_points
+        self.shield = new_shield_points if new_shield_points <= self.max_shield else self.max_shield
 
     def draw(self):
         self.sprite.draw()
         self.draw_health_bar()
-        self.draw_health_number()
+        
+        if self.shield > 0 : 
+            self.draw_shield_bar()
+            self.draw_shield_number()
+        else:
+            self.draw_health_number()
 
 
     def draw_health_number(self):
@@ -53,7 +64,7 @@ class Capitol():
                                          center_y = self.sprite.center_y + CONST.HEALTHBAR_OFFSET_Y,
                                          width = CONST.HEALTHBAR_WIDTH,
                                          height = CONST.HEALTHBAR_HEIGHT,
-                                         color = arcade.color.RED)
+                                         color = arcade.color.OU_CRIMSON_RED)
 
         # Calculate width based on health
         health_width = CONST.HEALTHBAR_WIDTH * (self.hit_point / self.max_hit_point)
@@ -62,4 +73,38 @@ class Capitol():
                                      center_y = self.sprite.center_y + CONST.HEALTHBAR_OFFSET_Y,
                                      width = health_width,
                                      height = CONST.HEALTHBAR_HEIGHT,
-                                     color = arcade.color.BLUE)
+                                     color = arcade.color.PAKISTAN_GREEN)
+
+    def draw_shield_bar(self):
+
+        # Calculate width based on health
+        shield_width = CONST.HEALTHBAR_WIDTH * (self.shield / self.max_shield)
+
+        arcade.draw_rectangle_filled(center_x = self.sprite.center_x - 0.5 * (CONST.HEALTHBAR_WIDTH - shield_width),
+                                     center_y = self.sprite.center_y + CONST.HEALTHBAR_OFFSET_Y,
+                                     width = shield_width,
+                                     height = CONST.HEALTHBAR_HEIGHT,
+                                     color = arcade.color.SPANISH_BLUE)
+
+    def draw_shield_number(self):
+
+        """ Draw how many hit points we have """
+
+        health_string = f"shield({self.shield})"
+        arcade.draw_text(health_string,
+                            start_x = self.sprite.center_x + CONST.HEALTH_NUMBER_OFFSET_X + CONST.SHIELD_BAR_OFFSET_X,
+                            start_y = self.sprite.center_y + CONST.HEALTH_NUMBER_OFFSET_Y,
+                            font_size = CONST.FONT_SIZE,
+                            color = arcade.color.WHITE)
+
+    def switch_on_shield_view(self):
+
+        if self.shield > 0 :
+            self.sprite = arcade.Sprite("sprites/land/capitol-shield.png", CONST.SPRITE_SCALING_CAPITOL)
+            self.sprite.center_y = CONST.SCREEN_HEIGHT/2
+            self.sprite.center_x = CONST.SCREEN_WIDTH/2
+
+        else :
+            self.sprite = arcade.Sprite("sprites/land/capitol-base.png", CONST.SPRITE_SCALING_CAPITOL)
+            self.sprite.center_y = CONST.SCREEN_HEIGHT/2
+            self.sprite.center_x = CONST.SCREEN_WIDTH/2
