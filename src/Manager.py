@@ -113,10 +113,10 @@ class Manager(arcade.Window):
 
 
     def end_game(self):
-        if self.strike_button.already_clicked == "True" :
-            Manager.music.stop(self.current_player)
-        else : 
+        if self.strike_button.already_clicked == "True_all" :
             self.strike_button.sound.stop(self.strike_button.manager)
+        else : 
+            Manager.music.stop(self.current_player)
 
         arcade.close_window()
         self.off = 1
@@ -176,7 +176,7 @@ class Manager(arcade.Window):
             self.gui.votes_count = int(CONST.MAX_VOTES - (self.time/60*2))
 
             # Create supporter
-            if self.time % (self.spawn_interval * 30) == 0:
+            if self.time % (self.spawn_interval * 20) == 0:
                 r = random.random()
                 if r < CONST.REDNECK_PROBABILITY:
                     s = Redneck(1)
@@ -236,7 +236,7 @@ class Manager(arcade.Window):
                         b.hit_points -= 1
                         break
             self.bullets = [b for b in self.bullets if b.hit_points > 0]
-            self.supporters = [s for s in self.supporters if (s.hit_points > 0 or s.type == "Boss")]
+            self.supporters = [s for s in self.supporters if s.hit_points > 0]
 
             # Remove bullets
             self.bullets = [b for b in self.bullets if b.sprite.right > 0 and b.sprite.left < (CONST.SCREEN_WIDTH - 1) and b.sprite.bottom > 0 and b.sprite.top < (CONST.SCREEN_HEIGHT - 1)]
